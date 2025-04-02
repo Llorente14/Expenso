@@ -1,0 +1,175 @@
+<%- include('../layout/header') %>
+
+<body
+  class="min-h-dvh bg-slate-800 text-slate-200 grid grid-cols-[auto_1fr]"
+  style="font-family: 'Poppins', sans-serif"
+>
+  <!-- Sidebar -->
+  <%- include('../layout/sidebar') %>
+  <!-- Main COntent -->
+  <main class="container h-auto w-auto flex-1 mx-4 my-6">
+    <div class="flex flex-col gap-4 px-12 py-4">
+      <!-- Baris Card -->
+      <div
+        class="flex flex-wrap flex-row w-full gap-4 items-center grow-0 justify-between"
+        id="col-data"
+      >
+        <!-- Card -->
+        <div
+          class="flex gap-4 justify-start grow bg-slate-200 rounded-[.5em] py-3 px-4 min-w-[225px] max-w-[225px]"
+        >
+          <div
+            class="row-span-2 flex items-center justify-center rounded-full bg-blue-200 p-4 w-14 h-14 fill-blue-600 shrink-0"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+            >
+              <path
+                d="M480-120q-74 0-139.5-28.5T226-226q-49-49-77.5-114.5T120-480q0-44 10-85.5t29-78q19-36.5 45.5-68T264-768l272 272-56 56-216-216q-30 36-47 80.5T200-480q0 116 82 198t198 82q116 0 198-82t82-198q0-107-68.5-184.5T520-756v76h-80v-160h40q74 0 139.5 28.5T734-734q49 49 77.5 114.5T840-480q0 74-28.5 139.5T734-226q-49 49-114.5 77.5T480-120ZM280-440q-17 0-28.5-11.5T240-480q0-17 11.5-28.5T280-520q17 0 28.5 11.5T320-480q0 17-11.5 28.5T280-440Zm200 200q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm200-200q-17 0-28.5-11.5T640-480q0-17 11.5-28.5T680-520q17 0 28.5 11.5T720-480q0 17-11.5 28.5T680-440Z"
+              />
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <p class="text-lg font-bold text-[#555555]">Rp 18.000</p>
+
+            <p class="text-sm text-[#333333] font-medium">Harian</p>
+          </div>
+        </div>
+        <div
+          class="flex gap-4 justify-start grow bg-slate-200 rounded-[.5em] py-3 px-4 min-w-[225px] max-w-[225px]"
+        >
+          <div
+            class="row-span-2 flex items-center justify-center rounded-full bg-blue-200 p-4 w-14 h-14 fill-blue-600 shrink-0"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+            >
+              <path
+                d="M480-120q-74 0-139.5-28.5T226-226q-49-49-77.5-114.5T120-480q0-44 10-85.5t29-78q19-36.5 45.5-68T264-768l272 272-56 56-216-216q-30 36-47 80.5T200-480q0 116 82 198t198 82q116 0 198-82t82-198q0-107-68.5-184.5T520-756v76h-80v-160h40q74 0 139.5 28.5T734-734q49 49 77.5 114.5T840-480q0 74-28.5 139.5T734-226q-49 49-114.5 77.5T480-120ZM280-440q-17 0-28.5-11.5T240-480q0-17 11.5-28.5T280-520q17 0 28.5 11.5T320-480q0 17-11.5 28.5T280-440Zm200 200q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm200-200q-17 0-28.5-11.5T640-480q0-17 11.5-28.5T680-520q17 0 28.5 11.5T720-480q0 17-11.5 28.5T680-440Z"
+              />
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <p class="text-lg font-bold text-[#555555]">Rp 180.000</p>
+
+            <p class="text-sm text-[#333333] font-medium">Mingguan</p>
+          </div>
+        </div>
+        <div
+          class="flex gap-4 justify-start grow bg-slate-200 rounded-[.5em] py-3 px-4 min-w-[225px] max-w-[225px]"
+        >
+          <div
+            class="row-span-2 flex items-center justify-center rounded-full bg-blue-200 p-4 w-14 h-14 fill-blue-600 shrink-0"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+            >
+              <path
+                d="M480-120q-74 0-139.5-28.5T226-226q-49-49-77.5-114.5T120-480q0-44 10-85.5t29-78q19-36.5 45.5-68T264-768l272 272-56 56-216-216q-30 36-47 80.5T200-480q0 116 82 198t198 82q116 0 198-82t82-198q0-107-68.5-184.5T520-756v76h-80v-160h40q74 0 139.5 28.5T734-734q49 49 77.5 114.5T840-480q0 74-28.5 139.5T734-226q-49 49-114.5 77.5T480-120ZM280-440q-17 0-28.5-11.5T240-480q0-17 11.5-28.5T280-520q17 0 28.5 11.5T320-480q0 17-11.5 28.5T280-440Zm200 200q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm200-200q-17 0-28.5-11.5T640-480q0-17 11.5-28.5T680-520q17 0 28.5 11.5T720-480q0 17-11.5 28.5T680-440Z"
+              />
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <p class="text-lg font-bold text-[#555555]">Rp 800.000</p>
+
+            <p class="text-sm text-[#333333] font-medium">Bulanan</p>
+          </div>
+        </div>
+        <div
+          class="flex gap-4 justify-start grow bg-slate-200 rounded-[.5em] py-3 px-4 min-w-[225px] max-w-[225px]"
+        >
+          <div
+            class="row-span-2 flex items-center justify-center rounded-full bg-blue-200 p-4 w-14 h-14 fill-blue-600 shrink-0"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+            >
+              <path
+                d="M480-120q-74 0-139.5-28.5T226-226q-49-49-77.5-114.5T120-480q0-44 10-85.5t29-78q19-36.5 45.5-68T264-768l272 272-56 56-216-216q-30 36-47 80.5T200-480q0 116 82 198t198 82q116 0 198-82t82-198q0-107-68.5-184.5T520-756v76h-80v-160h40q74 0 139.5 28.5T734-734q49 49 77.5 114.5T840-480q0 74-28.5 139.5T734-226q-49 49-114.5 77.5T480-120ZM280-440q-17 0-28.5-11.5T240-480q0-17 11.5-28.5T280-520q17 0 28.5 11.5T320-480q0 17-11.5 28.5T280-440Zm200 200q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm200-200q-17 0-28.5-11.5T640-480q0-17 11.5-28.5T680-520q17 0 28.5 11.5T720-480q0 17-11.5 28.5T680-440Z"
+              />
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <p class="text-lg font-bold text-[#555555]">Rp 1.800.000</p>
+
+            <p class="text-sm text-[#333333] font-medium">Tahunan</p>
+          </div>
+        </div>
+      </div>
+      <!-- Line Chart -->
+
+      <div class="flex flex-row">
+        <div class="basis-[58.333%] max-w-[58.333%] grow-0 pl-0 pt-7">
+          <div class="shadow-none p-7 pr-0 rounded-[10px] h-[410px]">
+            <p class="text-lg font-bold text-start text-slate-100 pb-2">
+              Report
+            </p>
+            <div class="" id="chart"></div>
+          </div>
+        </div>
+        <!-- Pie Chart -->
+        <div class="basis-[41.667%] max-w-[41.667%] grow-0 pl-0 pt-7">
+          <div class="shadow-none p-7 pl-0 rounded-[10px] h-[410px]">
+            <p class="text-lg font-bold text-start text-slate-100 pb-2">
+              Pie Chart
+            </p>
+            <canvas id="pieChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <!-- Recent Tracking -->
+      <div class="basis-[100%] max-w-[100%] grow-0 pl-0 pt-7">
+        <div class="shadow-none p-7 rounded-[10px] h-auto">
+          <p class="text-lg font-bold text-start text-slate-100 pb-2">
+            Recent Tracking
+          </p>
+          <%- include('../layout/recentExpenseTable') %>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+<!-- Include Chart.js -->
+<script>
+  // Setup chart after the DOM is loaded
+  window.onload = function () {
+    const ctx = document.getElementById("pieChart").getContext("2d");
+    const pieChart = new Chart(ctx, {
+      type: "pie", // Type of chart
+      data: {
+        labels: ["Red", "Blue", "Yellow"], // Labels for the pie chart slices
+        datasets: [
+          {
+            label: "Pie Chart Example",
+            data: [10, 20, 30], // Data for each slice
+            backgroundColor: ["red", "blue", "yellow"], // Slice colors
+            borderColor: ["black", "black", "black"], // Border color for slices
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "top",
+          },
+        },
+      },
+    });
+  };
+</script>
+<%- include('../layout/footer') %>

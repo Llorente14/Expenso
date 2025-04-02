@@ -1,0 +1,42 @@
+<%- include('../layout/header') %>
+<body
+  class="w-screen h-dvh bg-slate-900 flex justify-center items-center box-border"
+>
+  <div
+    class="flex px-6 items-center justify-center h-full flex-col max-w-[80%]"
+  >
+    <div class="font-serif text tracking-wide pb-10">
+      <h1 class="text-7xl text-slate-50 text-center pb-[0.3em]">
+        <span class="text-green-400">Expenso.</span> The SMART Way
+      </h1>
+      <h1 class="text-7xl text-slate-50 text-center">to Track Expenses</h1>
+    </div>
+    <p class="text-slate-400 text-center text-xl max-w-xl font-medium pb-4">
+      Expenso is a smart and intuitive expense tracking tool designed to
+      simplify your financial management. Gain real-time insights, analyze
+      spending patterns, and make informed decisions—all in one seamless
+      platform.
+    </p>
+    <div class="flex flex-row items-baseline justify-center gap-14">
+      <button
+        type="button"
+        class="px-8 py-3 bg-green-400 text-black font-medium text-base rounded-xs cursor-pointer hover:bg-slate-900 hover:text-green-400 hover:outline hover:outline-green-500 duration-300 transition-all"
+        onclick="window.location.href='<%= baseURL %>/auth/register'"
+      >
+        Get Started
+      </button>
+      <a
+        href="<%= baseURL %>/auth/login"
+        class="group relative flex items-center bold list-none text-slate-50 cursor-pointer hover:text-slate-200 font-bold space-x-2 transition-all duration-200"
+        ><span class="relative"
+          >Sign In
+          <span
+            class="absolute left-0 -bottom-1 h-[2px] w-0 bg-white transition-all duration-300 group-hover:w-full group-hover:-bottom-1"
+          ></span
+        ></span>
+      </a>
+    </div>
+  </div>
+  <p></p>
+</body>
+<%- include('../layout/footer') %>

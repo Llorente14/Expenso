@@ -1,0 +1,294 @@
+<%- include('../layout/header') %>
+
+<body
+  class="min-h-dvh bg-slate-800 text-slate-200 grid grid-cols-[auto_1fr]"
+  style="font-family: 'Poppins', sans-serif"
+>
+  <!-- Sidebar -->
+  <%- include('../layout/sidebar') %>
+  <!-- Main COntent -->
+  <main class="container h-auto w-auto flex-1 mx-4 my-6 pt-20 justify-center">
+    <!-- <img src="/icon/Expense.jpeg" alt="" srcset="" /> -->
+    <!-- Search and Sort Wrapper -->
+    <div class="flex flex-row w-auto mx-auto mb-10 max-w-5xl gap-8">
+      <!-- Search -->
+      <div
+        class="group flex flex-row bg-slate-600 rounded-[4px] px-2 py-1 items-center justify-center text-sm shadow-md sm:rounded-lg focus-within:bg-slate-700 transition-colors duration-300 ease-in-out"
+      >
+        <span
+          class="fill-slate-300 w-[80%] h-[80%] flex items-center justify-center group-focus-within:fill-green-500 transition-colors duration-300"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+            class="size-[1.5em]"
+          >
+            <path
+              d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
+            />
+          </svg>
+        </span>
+        <input
+          type="text"
+          name="search"
+          class="outline-none border-none px-2 py-1 mx-1 bg-transparent text-sm"
+          id="search"
+          placeholder="Search Your.."
+        />
+        <!-- Cancel Svg -->
+        <span
+          id="clear-icon"
+          class="fill-slate-300 w-[80%] h-[80%] flex items-center justify-center opacity-0 scale-90 transition-opacity duration-300 ease-in-out hover:fill-red-400"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+            class="size-[1.5em]"
+          >
+            <path
+              d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
+            />
+          </svg>
+        </span>
+      </div>
+      <!-- Sort -->
+
+      <button
+        id="dropdownDelayButton"
+        data-dropdown-toggle="dropdownDelay"
+        data-dropdown-delay="300"
+        data-dropdown-trigger="hover"
+        class="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800"
+        type="button"
+      >
+        Sort By Category
+        <svg
+          class="w-2.5 h-2.5 ms-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 10 6"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 1 4 4 4-4"
+          />
+        </svg>
+      </button>
+
+      <!-- Dropdown menu -->
+      <div
+        id="dropdownDelay"
+        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700"
+      >
+        <ul
+          class="py-2 text-sm text-gray-700 dark:text-gray-200"
+          aria-labelledby="dropdownDelayButton"
+        >
+          <li>
+            <a
+              href="#"
+              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >Belanja</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >Transfer</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >Transportasi</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >Kebutuhan Pokok</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >Lainnya</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="relative overflow-x-auto shadow-md sm:rounded-lg max-w-5xl mx-auto"
+    >
+      <!-- Table Data -->
+      <table
+        class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+      >
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <tr>
+            <th scope="col" class="px-6 py-3">Desc</th>
+            <th scope="col" class="px-6 py-3">Category</th>
+            <th scope="col" class="px-6 py-3">Date</th>
+            <th scope="col" class="px-6 py-3">Price</th>
+            <th scope="col" class="px-6 py-3">
+              <span class="sr-only">res</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% data.forEach((row) => { %>
+          <tr
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+          >
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              <%= row.desc %>
+            </th>
+            <td class="px-6 py-4"><%= row.category %></td>
+            <td class="px-6 py-4"><%=row.date%></td>
+            <td class="px-6 py-4"><%=row.price.toLocaleString("id-ID")%></td>
+            <td
+              class="px-6 py-4 text-right flex flex-row items-center gap-4 justify-end"
+            >
+              <!-- Edit SVG -->
+              <a
+                href="/expenses/update/<%= row._id%>"
+                class="font-medium text-blue-600 dark:text-blue-500 hover:underline fill-slate-500 hover:fill-green-500"
+                ><span class=""
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                  >
+                    <path
+                      d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h357l-80 80H200v560h560v-278l80-80v358q0 33-23.5 56.5T760-120H200Zm280-360ZM360-360v-170l367-367q12-12 27-18t30-6q16 0 30.5 6t26.5 18l56 57q11 12 17 26.5t6 29.5q0 15-5.5 29.5T897-728L530-360H360Zm481-424-56-56 56 56ZM440-440h56l232-232-28-28-29-28-231 231v57Zm260-260-29-28 29 28 28 28-28-28Z"
+                    />
+                  </svg> </span
+              ></a>
+              <!-- Delete SVG -->
+              <a
+                href="/expenses/delete/<%= row._id%>"
+                class="font-medium text-blue-600 dark:text-blue-500 hover:underline fill-slate-500 hover:fill-red-400"
+                ><span class=""
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                  >
+                    <path
+                      d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z"
+                    />
+                  </svg> </span
+              ></a>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+    <!-- Pagination -->
+    <nav
+      class="flex items-center flex-column flex-wrap md:flex-row justify-between mx-auto pt-4 mt-6 max-w-5xl"
+      aria-label="Table navigation"
+    >
+      <span
+        class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto"
+        >Showing
+        <span class="font-semibold text-gray-900 dark:text-white">1-10</span> of
+        <span class="font-semibold text-gray-900 dark:text-white"
+          >1000</span
+        ></span
+      >
+      <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+        <li>
+          <a
+            href="#"
+            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >Previous</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >1</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >2</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            aria-current="page"
+            class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+            >3</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >4</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >5</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >Next</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </main>
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const inputSearch = document.getElementById("search");
+    const clearIcon = document.getElementById("clear-icon");
+
+    inputSearch.addEventListener("input", function () {
+      if (inputSearch.value.trim() !== "") {
+        clearIcon.classList.remove("opacity-0", "scale-90");
+        clearIcon.classList.add("opacity-100", "scale-100");
+      } else {
+        clearIcon.classList.remove("opacity-100", "scale-100");
+        clearIcon.classList.add("opacity-0", "scale-90");
+      }
+    });
+
+    clearIcon.addEventListener("click", function () {
+      inputSearch.value = "";
+      clearIcon.classList.remove("opacity-100", "scale-100");
+      clearIcon.classList.add("opacity-0", "scale-90");
+    });
+  });
+</script>
+
+<%- include('../layout/footer') %>

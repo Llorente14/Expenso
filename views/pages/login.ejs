@@ -1,0 +1,74 @@
+<%- include('../layout/header') %>
+<body
+  class="w-screen h-dvh bg-slate-800 flex items-center box-border flex-col justify-around"
+>
+  <header>
+    <p class="text-2xl font-serif text-slate-50">Expenso.</p>
+  </header>
+  <main class="flex max-h-96 max-w-3xl">
+    <div class="bg-slate-50 h-full px-14 py-8 rounded-xl relative">
+      <p class="text-xl text-slate-900 font-serif font-light text-center pb-3">
+        Sign In
+      </p>
+      <p class="text-base text-red-900 font-serif font-light text-center pb-3">
+        <%= error%>
+      </p>
+      <p
+        class="text-sm text-slate-900 font-sans font-semibold text-center pb-3"
+      >
+        Don`t have an account?
+        <a
+          href="<%= baseURL %>/auth/register"
+          class="text-green-700 hover:text-green-500"
+          >Sign Up</a
+        >
+      </p>
+      <form action="" method="post" class="relative">
+        <div class="flex flex-col pb-3 group relative">
+          <label for="username" class="text-base group-focus-within:font-bold"
+            >Username/Gmail</label
+          >
+          <input
+            type="text"
+            name="username"
+            id="username"
+            class="outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
+            placeholder="Input username/gmail"
+            required
+          />
+          <span
+            class="absolute left-0 bottom-3 h-[2px] w-0 bg-black transition-all duration-300 group-focus-within:w-full"
+          ></span>
+        </div>
+
+        <div class="flex flex-col pb-3 group relative">
+          <label for="password" class="text-base group-focus-within:font-bold"
+            >Password</label
+          >
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
+            placeholder="Type your password here..."
+            required
+          />
+          <span
+            class="absolute left-0 bottom-3 h-[2px] w-0 bg-black transition-all duration-300 group-focus-within:w-full"
+          ></span>
+        </div>
+
+        <button
+          type="submit"
+          class="px-8 py-3 absolute bg-green-400 text-black font-medium text-center max-h-14 border-green-400 border-2 text-base rounded-xs w-full hover:bg-slate-800 hover:text-green-400 hover:border-green-500 duration-300 transition-all"
+        >
+          <p>Sign In</p>
+        </button>
+      </form>
+    </div>
+  </main>
+  <footer class="flex w-full items-center justify-center">
+    <p class="bg-slate-50">Ini Watermark</p>
+  </footer>
+</body>
+<%- include('../layout/footer') %>

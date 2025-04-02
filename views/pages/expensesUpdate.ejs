@@ -1,0 +1,92 @@
+<%- include('../layout/header') %>
+
+<body
+  class="min-h-dvh bg-slate-800 text-slate-200 grid grid-cols-[auto_1fr]"
+  style="font-family: 'Poppins', sans-serif"
+>
+  <!-- Sidebar -->
+  <%- include('../layout/sidebar') %>
+  <!-- Main COntent -->
+  <main
+    class="container h-auto w-auto flex-1 mx-4 my-6 flex items-center justify-center flex-col"
+  >
+    <div class="flex flex-col">
+      <div class="text-lg text-slate-200 text-center" id="judul">
+        <p>Update Data <% data._id%></p>
+      </div>
+      <div
+        class="max-w-[800px] bg-slate-700 rounded-2xl px-18 py-14 min-w-[600px]"
+      >
+        <form action="" method="post">
+          <div class="flex flex-col pb-3 group relative">
+            <label for="category" class="text-base group-focus-within:font-bold"
+              >Category</label
+            >
+            <input
+              type="text"
+              name="category"
+              id="category"
+              class="outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
+              placeholder="Input yout product here"
+              required
+            />
+            <span
+              class="absolute left-0 bottom-3 h-[2px] w-0 bg-black transition-all duration-300 group-focus-within:w-full"
+            ></span>
+          </div>
+          <div class="flex flex-col pb-3 group relative">
+            <label for="date" class="text-base group-focus-within:font-bold"
+              >Date</label
+            >
+            <input
+              type="date"
+              name="date"
+              id="date"
+              class="outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
+              placeholder="Input yout date here.."
+              required
+            />
+            <span
+              class="absolute left-0 bottom-3 h-[2px] w-0 bg-black transition-all duration-300 group-focus-within:w-full"
+            ></span>
+          </div>
+          <div class="flex flex-col pb-3 group relative">
+            <label for="price" class="text-base group-focus-within:font-bold"
+              >Price</label
+            >
+            <input
+              type="text"
+              name="price"
+              id="price"
+              class="outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
+              placeholder="Input your Price here..."
+              required
+            />
+            <span
+              class="absolute left-0 bottom-3 h-[2px] w-0 bg-black transition-all duration-300 group-focus-within:w-full"
+            ></span>
+          </div>
+          <div class="flex flex-col pb-3 group relative">
+            <label for="desc" class="text-base group-focus-within:font-bold"
+              >Desc</label
+            >
+            <input
+              type="text"
+              name="desc"
+              id="desc"
+              class="outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
+              placeholder="Input yout description"
+              required
+            />
+            <span
+              class="absolute left-0 bottom-3 h-[2px] w-0 bg-black transition-all duration-300 group-focus-within:w-full"
+            ></span>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- <img src="/icon/ExpenseAdd.jpeg" alt="" srcset="" /> -->
+  </main>
+</body>
+
+<%- include('../layout/footer') %>

@@ -21,6 +21,17 @@ router.get("/expenses/add", async (req, res) => {
   res.render("pages/expensesAdd", { title: "Expenses" });
 });
 
+router.post("/expenses/add", async (req, res) => {
+  const spendData = {
+    desc: req.body.desc,
+    category: req.body.category,
+    date: req.body.date,
+    price: req.body.price,
+  };
+  data.push(spendData);
+  res.redirect("/expenses");
+});
+
 router.get("/expenses/update/:id", async (req, res) => {
   //   res.send("dash");
   const id = req.params.id;

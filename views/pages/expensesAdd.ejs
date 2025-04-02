@@ -15,7 +15,7 @@
         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
           Add a new product
         </h2>
-        <form action="#">
+        <form action="/expenses/add" method="POST">
           <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
             <div class="sm:col-span-2">
               <label
@@ -25,8 +25,8 @@
               >
               <input
                 type="text"
-                name="name"
-                id="name"
+                name="desc"
+                id="desc"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                 placeholder="Type your.."
                 required=""
@@ -56,6 +56,7 @@
               >
               <select
                 id="category"
+                name="category"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
               >
                 <option selected="">Select category</option>
@@ -91,6 +92,7 @@
                 </div>
                 <input
                   id="datepicker-autohide"
+                  name="date"
                   datepicker
                   datepicker-autohide
                   datepicker-orientation="top left"
@@ -110,7 +112,6 @@
         </form>
       </div>
     </section>
-    <!-- <img src="/icon/ExpenseAdd.jpeg" alt="" srcset="" /> -->
   </main>
 </body>
 

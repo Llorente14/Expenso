@@ -10,18 +10,22 @@ const data = [
     price: 40000,
   },
 ];
+function checkAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
 
-router.get("/expenses", async (req, res) => {
-  //   res.send("dash");
+  res.redirect("/auth/login");
+}
+router.get("/expenses", checkAuthenticated, async (req, res) => {
   res.render("pages/expenses", { title: "Expenses", data: data });
 });
 
 router.get("/expenses/add", async (req, res) => {
-  //   res.send("dash");
   res.render("pages/expensesAdd", { title: "Expenses" });
 });
 
-router.post("/expenses/add", async (req, res) => {
+router.post("/expenses/add", checkAuthenticated, async (req, res) => {
   const spendData = {
     desc: req.body.desc,
     category: req.body.category,
@@ -32,8 +36,7 @@ router.post("/expenses/add", async (req, res) => {
   res.redirect("/expenses");
 });
 
-router.get("/expenses/update/:id", async (req, res) => {
-  //   res.send("dash");
+router.get("/expenses/update/:id", checkAuthenticated, async (req, res) => {
   const id = req.params.id;
   res.render("pages/expensesUpdate", { title: `Expenses Update ${id} ` });
 });

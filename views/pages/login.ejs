@@ -11,7 +11,7 @@
         Sign In
       </p>
       <p class="text-base text-red-900 font-serif font-light text-center pb-3">
-        <%= error%>
+        <% if (messages.error) { %> <%= messages.error %> <% } %>
       </p>
       <p
         class="text-sm text-slate-900 font-sans font-semibold text-center pb-3"
@@ -25,13 +25,13 @@
       </p>
       <form action="" method="post" class="relative">
         <div class="flex flex-col pb-3 group relative">
-          <label for="username" class="text-base group-focus-within:font-bold"
-            >Username/Gmail</label
+          <label for="gmail" class="text-base group-focus-within:font-bold"
+            >Gmail</label
           >
           <input
             type="text"
-            name="username"
-            id="username"
+            name="gmail"
+            id="gmail"
             class="outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
             placeholder="Input username/gmail"
             required

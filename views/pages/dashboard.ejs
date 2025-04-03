@@ -1,4 +1,8 @@
 <%- include('../layout/header') %>
+<!-- Load ApexCharts before your chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@latest"></script>
+<script src="public/script/pieChart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
 <body
   class="min-h-dvh bg-slate-800 text-slate-200 grid grid-cols-[auto_1fr]"
@@ -108,7 +112,7 @@
           </div>
         </div>
       </div>
-      <!-- Line Chart -->
+      <!-- Area Chart -->
 
       <div class="flex flex-row">
         <div class="basis-[58.333%] max-w-[58.333%] grow-0 pl-0 pt-7">
@@ -116,7 +120,7 @@
             <p class="text-lg font-bold text-start text-slate-100 pb-2">
               Report
             </p>
-            <div class="" id="chart"></div>
+            <div class="" id="area-chart"></div>
           </div>
         </div>
         <!-- Pie Chart -->

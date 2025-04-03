@@ -2,6 +2,8 @@
 <body
   class="w-screen h-dvh bg-slate-800 flex items-center box-border flex-col justify-around"
 >
+  <% if (alertmsg) { %> <%- include('../component/alert', { msg: "Anda Berhasil"
+  + " Log out", type: "success" }) %> <% } %>
   <header>
     <p class="text-2xl font-serif text-slate-50">Expenso.</p>
   </header>
@@ -11,7 +13,7 @@
         Sign In
       </p>
       <p class="text-base text-red-900 font-serif font-light text-center pb-3">
-        <% if (messages.error) { %> <%= messages.error %> <% } %>
+        <% if (error) { %> <%= error %> <% } %>
       </p>
       <p
         class="text-sm text-slate-900 font-sans font-semibold text-center pb-3"
@@ -23,7 +25,7 @@
           >Sign Up</a
         >
       </p>
-      <form action="" method="post" class="relative">
+      <form action="/auth/login" method="post" class="relative">
         <div class="flex flex-col pb-3 group relative">
           <label for="gmail" class="text-base group-focus-within:font-bold"
             >Gmail</label
@@ -32,7 +34,7 @@
             type="text"
             name="gmail"
             id="gmail"
-            class="outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
+            class="focus:ring-transparent outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
             placeholder="Input username/gmail"
             required
           />
@@ -49,7 +51,7 @@
             type="password"
             name="password"
             id="password"
-            class="outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
+            class="focus:ring-transparent outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
             placeholder="Type your password here..."
             required
           />

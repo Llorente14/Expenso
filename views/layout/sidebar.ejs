@@ -54,10 +54,14 @@
        
       </li>
       <li>
-        <a href="<%=baseURL %>/" class="rounded-[0.5em] p-[0.85em] flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700">
-          <svg class="shrink-0" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" ><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
-          <span class="grow">Logout</span>
-        </a>
+        <form action="/auth/logout" method="get" class="rounded-[0.5em] p-[0.85em] flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700">
+          <button type="submit" class="flex items-center gap-[1em] w-full cursor-pointer">
+            <svg class="shrink-0" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+              <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/>
+            </svg>
+            Logout
+          </button>
+        </form>
       </li>
 
     </ul>

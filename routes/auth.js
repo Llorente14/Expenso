@@ -10,13 +10,13 @@ const users = [];
 
 function checkNotAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    return res.redirect("/dashboard");
+    return res.redirect("/expenses");
   }
   next();
 }
 
 router.get("/login", checkNotAuthenticated, async (req, res) => {
-  res.render("pages/login", { title: "Sign In", error: "" });
+  res.render("pages/login", { title: "Sign In" });
 });
 
 router.post(
@@ -30,7 +30,7 @@ router.post(
 );
 
 router.get("/register", checkNotAuthenticated, async (req, res) => {
-  res.render("pages/register", { title: "Sign Up", msg: "" });
+  res.render("pages/register", { title: "Sign Up" });
 });
 
 router.post("/register", checkNotAuthenticated, async (req, res) => {
@@ -57,6 +57,15 @@ router.post("/register", checkNotAuthenticated, async (req, res) => {
   console.log(users);
 });
 
-// router.post("/login", async (req, res) => {});
+//logout handler
+router.get("/logout", (req, res) => {
+  req.logout((err) => {
+    if (err) return next(err);
+    // Gunakan req.flash() SEBELUM redirect
+    req.flash("alertmsg", "Anda Berhasil Log Out");
+
+    res.redirect("/auth/login");
+  });
+});
 
 module.exports = router;

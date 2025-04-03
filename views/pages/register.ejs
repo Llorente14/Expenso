@@ -12,11 +12,11 @@
       <p class="text-xl text-slate-900 font-serif font-light text-center pb-3">
         Sign Up
       </p>
-      <% if (msg) { %>
+
       <p class="my-2 text-base text-red-400 font-sans font-medium text-center">
-        <%= msg %>
+        <% if (messages.error) { %> <%= messages.error %> <% } %>
       </p>
-      <% } %>
+
       <form action="" method="post" class="pb-2">
         <div class="flex flex-col pb-3 group relative">
           <label for="name" class="text-base group-focus-within:font-bold"
@@ -26,7 +26,7 @@
             type="text"
             name="name"
             id="name"
-            class="outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
+            class="focus:ring-transparent outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
             placeholder="John Doe"
             required
           />
@@ -39,10 +39,10 @@
             >Gmail</label
           >
           <input
-            type="gmail"
+            type="email"
             name="gmail"
             id="gmail"
-            class="outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
+            class="focus:ring-transparent outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
             placeholder="username@stu.untar.ac.id"
             required
           />
@@ -58,7 +58,7 @@
             type="password"
             name="password"
             id="password"
-            class="outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
+            class="focus:ring-transparent outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
             placeholder="Type your password here..."
             required
           />
@@ -74,7 +74,7 @@
             type="password"
             name="cpassword"
             id="cpassword"
-            class="outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
+            class="focus:ring-transparent outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
             placeholder="Confirm your password"
             required
           />

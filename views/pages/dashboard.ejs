@@ -1,9 +1,6 @@
 <%- include('../layout/header') %>
-<!-- Load ApexCharts before your chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@latest"></script>
-<script src="public/script/pieChart.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
+<script src="public/script/pieChart.js"></script>
 <body
   class="min-h-dvh bg-slate-800 text-slate-200 grid grid-cols-[auto_1fr]"
   style="font-family: 'Poppins', sans-serif"
@@ -130,7 +127,7 @@
             <p class="text-lg font-bold text-start text-slate-100 pb-2">
               Pie Chart
             </p>
-            <canvas id="pieChart"></canvas>
+            <div class="" id="pieChart"></div>
           </div>
         </div>
       </div>
@@ -147,34 +144,4 @@
   </main>
 </body>
 
-<!-- Include Chart.js -->
-<script>
-  // Setup chart after the DOM is loaded
-  window.onload = function () {
-    const ctx = document.getElementById("pieChart").getContext("2d");
-    const pieChart = new Chart(ctx, {
-      type: "pie", // Type of chart
-      data: {
-        labels: ["Red", "Blue", "Yellow"], // Labels for the pie chart slices
-        datasets: [
-          {
-            label: "Pie Chart Example",
-            data: [10, 20, 30], // Data for each slice
-            backgroundColor: ["red", "blue", "yellow"], // Slice colors
-            borderColor: ["black", "black", "black"], // Border color for slices
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: "top",
-          },
-        },
-      },
-    });
-  };
-</script>
 <%- include('../layout/footer') %>

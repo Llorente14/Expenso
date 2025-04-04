@@ -3,8 +3,8 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const router = express.Router();
 
-//Saat udah ada mongoDB apus aja
-const users = [];
+//Database Collection
+const User = require("../app/model/Users");
 
 //Middleware agar user harus login untuk masuk ke dashboard ataupun sebaliknya
 
@@ -35,26 +35,29 @@ router.get("/register", checkNotAuthenticated, async (req, res) => {
 
 router.post("/register", checkNotAuthenticated, async (req, res) => {
   try {
-    //Matching cpass and pass
-    // if (req.body.password !== req.body.cpassword) {
-    //   res.redirect("/auth/register", {
-    //     msg: "Confirm password doesn`t match with password",
-    //   });
-    //   return;
-    // }
+    const { name, gmail, password, cpassword } = req.body;
 
-    let hashedPass = await bcrypt.hash(req.body.password, 10);
-    users.push({
-      id: Date.now().toString(),
-      name: req.body.name,
-      gmail: req.body.gmail,
-      password: hashedPass,
-    });
+    if (password !== cpassword) {
+      req.flash("error", "Password confirmation doesn't match");
+      return res.redirect("/auth/register");
+    }
+
+    const existingUser = await User.findOne({ gmail });
+    if (existingUser) {
+      req.flash("error", "Email already registered");
+      return res.redirect("/auth/register");
+    }
+
+    const hashedPass = await bcrypt.hash(password, 10);
+    await User.create({ name, gmail, password: hashedPass });
+
+    req.flash("success", "Registration successful. Please login");
     res.redirect("/auth/login");
-  } catch {
+  } catch (error) {
+    console.error("Registration error:", error);
+    req.flash("error", "Registration failed");
     res.redirect("/auth/register");
   }
-  console.log(users);
 });
 
 //logout handler
@@ -67,5 +70,7 @@ router.get("/logout", (req, res) => {
     res.redirect("/auth/login");
   });
 });
+
+function insertOneUser() {}
 
 module.exports = router;

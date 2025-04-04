@@ -11,27 +11,16 @@ const passport = require("passport");
 const flash = require("express-flash");
 const connectDB = require("./app/config/db");
 const InitializePassport = require("./app/config/passport-config");
+
+//Database Model
+const Users = require("./app/model/Users");
 const PORT = 3000 || process.env.PORT;
 
 //Koneksi Ke DB
 connectDB();
 
 //Pengecekan
-async function hashing() {
-  let hashedPass1 = await bcrypt.hash("123", 10);
-  const users1 = [
-    { id: 123, name: "123", gmail: "2@2", password: hashedPass1 },
-  ];
-  console.log(users1);
-  return users1;
-}
-hashing().then((users) => {
-  InitializePassport(
-    passport,
-    (gmail) => users.find((user) => user.gmail === gmail),
-    (id) => users.find((user) => user.id === id)
-  );
-});
+InitializePassport(passport);
 
 app.use(bodyParser.urlencoded());
 //Auth Login Register
@@ -83,3 +72,20 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`http://localhost:${PORT}`);
 });
+
+//trash
+// async function hashing() {
+//   let hashedPass1 = await bcrypt.hash("123", 10);
+//   const users1 = [
+//     { id: 123, name: "123", gmail: "2@2", password: hashedPass1 },
+//   ];
+//   console.log(users1);
+//   return users1;
+// }
+// hashing().then((users) => {
+//   InitializePassport(
+//     passport,
+//     (gmail) => users.find((user) => user.gmail === gmail),
+//     (id) => users.find((user) => user.id === id)
+//   );
+// });

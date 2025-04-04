@@ -1,6 +1,5 @@
-import Chart from "chart.js/auto";
-
-(async function () {
+document.addEventListener("DOMContentLoaded", function () {
+  // Data
   const data = [
     { category: "Belanja", count: 30 },
     { category: "Kebutuhan Pokok", count: 25 },
@@ -9,67 +8,101 @@ import Chart from "chart.js/auto";
     { category: "Lainnya", count: 10 },
   ];
 
-  new Chart(document.getElementById("pieChart"), {
-    type: "doughnut",
-    data: {
-      labels: data.map((row) => row.category),
-      datasets: [
-        {
-          label: "Pengeluaran Bulanan",
-          data: data.map((row) => row.count),
-          backgroundColor: [
-            "#FF6384",  // Pink/Red for Belanja
-            "#36A2EB",  // Blue for Kebutuhan Pokok
-            "#FFCE56",  // Yellow for Transportasi
-            "#4BC0C0",  // Teal for Transfer
-            "#9966FF"   // Purple for Lainnya
-          ],
-          borderColor: "#1E293B",
-          borderWidth: 2,
-          hoverOffset: 15,
-        },
-      ],
+  // Warna baru yang lebih vibrant dengan kombinasi slate dan indigo
+  const colors = [
+    "#818cf8", // indigo-400
+    "#6366f1", // indigo-500
+    "#4f46e5", // indigo-600
+    "#94a3b8", // slate-400
+    "#64748b", // slate-500
+    "#475569", // slate-600
+  ];
+
+  const options = {
+    series: data.map((item) => item.count),
+    chart: {
+      type: "donut",
+      height: "100%",
+      animations: {
+        enabled: true,
+        easing: "easeinout",
+        speed: 900,
+      },
     },
-    options: {
-      plugins: {
-        legend: {
-          display: true,
-          position: "right",
+    labels: data.map((item) => item.category),
+    colors: colors,
+    plotOptions: {
+      pie: {
+        donut: {
+          size: "60%", // Mengatur ukuran lubang tengah
           labels: {
-            boxWidth: 15,
-            font: {
-              size: 12,
-              family: "Inter, sans-serif",
-              weight: "bold",
+            show: true,
+            color: "f1f5f9",
+            //Tulisan tengah total
+            total: {
+              show: true,
+              label: "Total",
+              color: "#e2e8f0", // slate-200
+              formatter: function (w) {
+                return w.globals.seriesTotals.reduce((a, b) => a + b, 0) + "%";
+              },
             },
-            color: '#000000',
-            padding: 20
           },
         },
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              const total = context.dataset.data.reduce((a, b) => a + b, 0);
-              const percentage = Math.round((context.raw / total) * 100);
-              return `${context.label}: ${context.raw} (${percentage}%)`;
-            }
-          }
-        }
       },
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '60%',
-      animation: {
-        animateScale: true,
-        animateRotate: true
-      }
     },
-  });
-})();
+    legend: {
+      position: "bottom",
+      horizontalAlign: "center",
 
-if (document.getElementById("pie-chart") && typeof ApexCharts !== 'undefined') {
-  const chart = new ApexCharts(document.getElementById("pie-chart"), getChartOptions());
+      labels: {
+        colors: "#e2e8f0", // slate-200 untuk kontras
+        useSeriesColors: false,
+      },
+      itemMargin: {
+        horizontal: 12,
+        vertical: 7,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+      style: {
+        colors: ["#f8fafc"], // slate-50
+        fontSize: "12px",
+        fontFamily: "'Poppins', sans-serif",
+      },
+      dropShadow: {
+        enabled: false,
+      },
+      formatter: function (val, { seriesIndex, w }) {
+        return w.config.labels[seriesIndex] + ": " + val + "%";
+      },
+    },
+    tooltip: {
+      enabled: true,
+      style: {
+        fontSize: "14px",
+        fontFamily: "'Poppins', sans-serif",
+        colors: ["#e2e8f0", "f1f5f9"],
+      },
+      y: {
+        formatter: function (value) {
+          return value + "%";
+        },
+      },
+    },
+    responsive: [
+      {
+        breakpoint: 768,
+        options: {
+          legend: {
+            position: "bottom",
+          },
+        },
+      },
+    ],
+  };
+
+  const chart = new ApexCharts(document.getElementById("pieChart"), options);
   chart.render();
-}
-
-console.log(data);
+});

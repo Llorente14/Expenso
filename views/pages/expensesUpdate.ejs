@@ -10,82 +10,112 @@
   <main
     class="container h-auto w-auto flex-1 mx-4 my-6 flex items-center justify-center flex-col"
   >
-    <div class="flex flex-col">
-      <div class="text-lg text-slate-200 text-center" id="judul">
-        <p>Update Data <% data._id%></p>
-      </div>
-      <div
-        class="max-w-[800px] bg-slate-700 rounded-2xl px-18 py-14 min-w-[600px]"
-      >
-        <form action="" method="post">
-          <div class="flex flex-col pb-3 group relative">
-            <label for="category" class="text-base group-focus-within:font-bold"
-              >Category</label
-            >
-            <input
-              type="text"
-              name="category"
-              id="category"
-              class="outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
-              placeholder="Input yout product here"
-              required
-            />
-            <span
-              class="absolute left-0 bottom-3 h-[2px] w-0 bg-black transition-all duration-300 group-focus-within:w-full"
-            ></span>
+    <section class="shadow-md">
+      <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+        <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+          Update Your Expenses
+        </h2>
+        <form action="/expenses/update/<%= expenses._id%>" method="POST">
+          <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+            <div class="sm:col-span-2">
+              <label
+                for="name"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Description</label
+              >
+              <input
+              value="<%= expenses.desc %>"
+                type="text"
+                name="desc"
+                id="desc"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                placeholder="Type your.."
+                required=""
+              />
+            </div>
+
+            <div class="w-full">
+              <label
+                for="price"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Price</label
+              >
+              <input
+              value="<%= expenses.price %>"
+                type="number"
+                name="price"
+                id="price"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                placeholder="Rp 40.000"
+                required=""
+              />
+            </div>
+            <div>
+              <label
+                for="category"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Category</label
+              >
+              <select
+              value="<%= expenses.category %>"
+                id="category"
+                name="category"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+              >
+                <option selected="">Select category</option>
+                <option value="Belanja">Belanja</option>
+                <option value="Transfer">Transfer</option>
+                <option value="Transportasi">Transportasi</option>
+                <option value="Kebutuhan Pokok">Kebutuhan Pokok</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+            </div>
+            <div>
+              <label
+                for="item-weight"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Date</label
+              >
+
+              <div class="relative max-w-sm">
+                <div
+                  class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+                >
+                  <svg
+                    class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
+                    />
+                  </svg>
+                </div>
+                <input
+                value="<%= expenses.date %>"
+                  id="datepicker-autohide"
+                  name="date"
+                  datepicker
+                  datepicker-autohide
+                  datepicker-orientation="top left"
+                  type="text"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                  placeholder="Select date"
+                />
+              </div>
+            </div>
           </div>
-          <div class="flex flex-col pb-3 group relative">
-            <label for="date" class="text-base group-focus-within:font-bold"
-              >Date</label
-            >
-            <input
-              type="date"
-              name="date"
-              id="date"
-              class="outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
-              placeholder="Input yout date here.."
-              required
-            />
-            <span
-              class="absolute left-0 bottom-3 h-[2px] w-0 bg-black transition-all duration-300 group-focus-within:w-full"
-            ></span>
-          </div>
-          <div class="flex flex-col pb-3 group relative">
-            <label for="price" class="text-base group-focus-within:font-bold"
-              >Price</label
-            >
-            <input
-              type="text"
-              name="price"
-              id="price"
-              class="outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
-              placeholder="Input your Price here..."
-              required
-            />
-            <span
-              class="absolute left-0 bottom-3 h-[2px] w-0 bg-black transition-all duration-300 group-focus-within:w-full"
-            ></span>
-          </div>
-          <div class="flex flex-col pb-3 group relative">
-            <label for="desc" class="text-base group-focus-within:font-bold"
-              >Desc</label
-            >
-            <input
-              type="text"
-              name="desc"
-              id="desc"
-              class="outline-none border-none text-sm border border-slate-900 px-3 py-2 pl-0 bg-transparent focus:border-transparent"
-              placeholder="Input yout description"
-              required
-            />
-            <span
-              class="absolute left-0 bottom-3 h-[2px] w-0 bg-black transition-all duration-300 group-focus-within:w-full"
-            ></span>
-          </div>
+          <button
+            type="submit"
+            class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-green-600 rounded-lg focus:ring-4 focus:ring-green-200 dark:focus:ring-green-900 hover:bg-green-700"
+          >
+            Update product
+          </button>
         </form>
       </div>
-    </div>
-    <!-- <img src="/icon/ExpenseAdd.jpeg" alt="" srcset="" /> -->
+    </section>
   </main>
 </body>
 

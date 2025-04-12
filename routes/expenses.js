@@ -59,15 +59,26 @@ router.post("/expenses/add", checkAuthenticated, async (req, res) => {
 
 router.get("/expenses/update/:id", checkAuthenticated, async (req, res) => {
   const id = req.params.id;
-  // const data = await Expense.findById(id);
   const data = await Expense.findOne({ _id: id, user: req.user._id });
+
   if (!data) {
     req.flash("error", "Data tidak ditemukan");
     return res.redirect("/expenses");
   }
+
+  // Format date ke dd/mm/yyyy
+  const dateObj = new Date(data.date);
+  const day = String(dateObj.getDate()).padStart(2, "0");
+  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  const year = dateObj.getFullYear();
+  const formattedDate = `${month}/${day}/${year}`;
+
   res.render("pages/expensesUpdate", {
-    title: `Expenses Update ${id} `,
-    expenses: data,
+    title: `Expenses Update ${id}`,
+    expenses: {
+      ...data.toObject(),
+      formattedDate,
+    },
   });
 });
 

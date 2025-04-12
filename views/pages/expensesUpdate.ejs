@@ -60,6 +60,7 @@
               value="<%= expenses.category %>"
                 id="category"
                 name="category"
+                required
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
               >
                 <option selected>Select category</option>
@@ -94,15 +95,18 @@
                   </svg>
                 </div>
                 <input
-                value="<%= expenses.date %>"
+                value="<%= expenses.formattedDate %>"
                   id="datepicker-autohide"
                   name="date"
                   datepicker
+                  datepicker-format="mm/dd/yyyy"
                   datepicker-autohide
                   datepicker-orientation="top left"
                   type="text"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                   placeholder="Select date"
+                  required
+                  
                 />
               </div>
             </div>

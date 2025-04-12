@@ -54,14 +54,12 @@
       <!-- Sort -->
 
       <button
-        id="dropdownDelayButton"
-        data-dropdown-toggle="dropdownDelay"
-        data-dropdown-delay="300"
-        data-dropdown-trigger="hover"
-        class="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800"
-        type="button"
-      >
-        Sort By Category
+          id="dropdownDelayButton"
+          data-dropdown-toggle="dropdownDelay"
+          class="text-white bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
+          type="button"
+        >
+          Sort by: <%= currentCategory || "Semua" %>
         <svg
           class="w-2.5 h-2.5 ms-3"
           aria-hidden="true"
@@ -78,53 +76,30 @@
           />
         </svg>
       </button>
-
+      
       <!-- Dropdown menu -->
       <div
         id="dropdownDelay"
         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700"
       >
-        <ul
-          class="py-2 text-sm text-gray-700 dark:text-gray-200"
-          aria-labelledby="dropdownDelayButton"
-        >
+      
+      <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+        <% const categories = ["Semua", "Belanja", "Transfer", "Transportasi", "Kebutuhan Pokok", "Lainya"]; %>
+        <% categories.forEach((cat) => { 
+          const isActive = (currentCategory === cat || (cat === "Semua" && !currentCategory));
+          const activeClass = isActive ? "bg-gray-200 dark:bg-gray-600 text-black dark:text-white font-semibold" : "";
+          const queryString = cat === "Semua" ? `search=${searchQuery || ""}` : `category=${cat}&search=${searchQuery || ""}`;
+        %>
           <li>
-            <a
-              href="#"
-              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >Belanja</a
-            >
+            <a 
+              href="/expenses?<%= queryString %>" 
+              class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white <%= activeClass %>">
+              <%= cat %>
+            </a>
           </li>
-          <li>
-            <a
-              href="#"
-              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >Transfer</a
-            >
-          </li>
-          <li>
-            <a
-              href="#"
-              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >Transportasi</a
-            >
-          </li>
-          <li>
-            <a
-              href="#"
-              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >Kebutuhan Pokok</a
-            >
-          </li>
-          <li>
-            <a
-              href="#"
-              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >Lainnya</a
-            >
-          </li>
-        </ul>
-      </div>
+        <% }); %>
+      </ul>
+    </div>
     </div>
 
     <!-- Table Data -->
@@ -347,6 +322,10 @@
         clearIcon.classList.remove("opacity-0", "scale-90");
         clearIcon.classList.add("opacity-100", "scale-100");
       }
+    }
+    
+    function filterCategory(category) {
+      window.location.href = `/dashboard?category=${encodeURIComponent(category)}`;
     }
 
     // Panggil inisialisasi saat halaman dimuat

@@ -20,9 +20,13 @@ function checkAuthenticated(req, res, next) {
 router.get("/expenses", checkAuthenticated, async (req, res) => {
   try {
     const searchQuery = req.query.search || "";
+    const category = req.query.category || null;
     let filter = { user: req.user._id };
     if (searchQuery) {
       filter.desc = { $regex: searchQuery, $options: "i" };
+    }
+    if (category) {
+      filter.category = category;
     }
 
     // Pagination
@@ -44,6 +48,7 @@ router.get("/expenses", checkAuthenticated, async (req, res) => {
       title: "Expenses",
       data,
       searchQuery,
+      currentCategory: category,
       counter: {
         startIndex,
         endIndex,
@@ -135,5 +140,7 @@ router.get("/expenses/delete/:id", checkAuthenticated, async (req, res) => {
   }
   res.redirect("/expenses");
 });
+
+
 
 module.exports = router;

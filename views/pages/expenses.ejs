@@ -157,7 +157,7 @@
               <%= row.desc %>
             </th>
             <td class="px-6 py-4 text-gray-300"><%= row.category %></td>
-            <td class="px-6 py-4 text-gray-300"><%=row.date%></td>
+            <td class="px-6 py-4 text-gray-300"><%=row.date.toDateString()%></td>
             <td class="px-6 py-4 text-gray-300">
               <%=row.price.toLocaleString("id-ID")%>
             </td>

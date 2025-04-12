@@ -19,19 +19,38 @@ function checkAuthenticated(req, res, next) {
 }
 router.get("/expenses", checkAuthenticated, async (req, res) => {
   try {
-    // Ambil parameter search dari query URL cth: </expense?search=beli UC>
     const searchQuery = req.query.search || "";
     let filter = { user: req.user._id };
     if (searchQuery) {
       filter.desc = { $regex: searchQuery, $options: "i" };
     }
 
-    const data = await Expense.find(filter).sort({ date: -1 });
+    // Pagination
+    const perPage = 5;
+    const page = parseInt(req.query.page) || 1;
+
+    const count = await Expense.countDocuments(filter);
+    const startIndex = count === 0 ? 0 : (page - 1) * perPage + 1;
+    const endIndex = Math.min(startIndex + perPage - 1, count);
+    const nextPage = page + 1;
+    const hasNextPage = nextPage <= Math.ceil(count / perPage);
+
+    const data = await Expense.find(filter)
+      .sort({ date: -1 }) // Sort dari tanggal terbaru
+      .skip((page - 1) * perPage)
+      .limit(perPage);
 
     res.render("pages/expenses", {
       title: "Expenses",
-      data: data,
+      data,
       searchQuery,
+      counter: {
+        startIndex,
+        endIndex,
+        count,
+      },
+      current: page,
+      nextPage: hasNextPage ? nextPage : null,
     });
   } catch (error) {
     console.error("Error fetching expenses:", error);
@@ -39,7 +58,6 @@ router.get("/expenses", checkAuthenticated, async (req, res) => {
     res.render("pages/expenses", { title: "Expenses", data: [] });
   }
 });
-
 router.get("/expenses/add", async (req, res) => {
   res.render("pages/expensesAdd", { title: "Expenses" });
 });

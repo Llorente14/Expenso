@@ -18,9 +18,26 @@ function checkAuthenticated(req, res, next) {
   res.redirect("/auth/login");
 }
 router.get("/expenses", checkAuthenticated, async (req, res) => {
-  const data = await Expense.find({ user: req.user._id }).sort({ date: -1 });
+  try {
+    // Ambil parameter search dari query URL cth: </expense?search=beli UC>
+    const searchQuery = req.query.search || "";
+    let filter = { user: req.user._id };
+    if (searchQuery) {
+      filter.desc = { $regex: searchQuery, $options: "i" };
+    }
 
-  res.render("pages/expenses", { title: "Expenses", data: data });
+    const data = await Expense.find(filter).sort({ date: -1 });
+
+    res.render("pages/expenses", {
+      title: "Expenses",
+      data: data,
+      searchQuery,
+    });
+  } catch (error) {
+    console.error("Error fetching expenses:", error);
+    req.flash("error", "Gagal memuat data");
+    res.render("pages/expenses", { title: "Expenses", data: [] });
+  }
 });
 
 router.get("/expenses/add", async (req, res) => {

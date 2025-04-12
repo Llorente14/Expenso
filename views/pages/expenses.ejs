@@ -31,8 +31,10 @@
           type="text"
           name="search"
           class="outline-none border-none px-2 py-1 mx-1 bg-transparent text-sm"
+          style="border-color: transparent"
           id="search"
           placeholder="Search Your.."
+          value="<%= locals.searchQuery || '' %>"
         />
         <!-- Cancel Svg -->
         <span
@@ -157,7 +159,9 @@
               <%= row.desc %>
             </th>
             <td class="px-6 py-4 text-gray-300"><%= row.category %></td>
-            <td class="px-6 py-4 text-gray-300"><%=row.date.toDateString()%></td>
+            <td class="px-6 py-4 text-gray-300">
+              <%=row.date.toDateString()%>
+            </td>
             <td class="px-6 py-4 text-gray-300">
               <%=row.price.toLocaleString("id-ID")%>
             </td>
@@ -275,6 +279,11 @@
     const inputSearch = document.getElementById("search");
     const clearIcon = document.getElementById("clear-icon");
 
+    // Status searchInput untuk debounce agar automatis ngirim jadi user effortless
+    let typingTimer;
+    const doneTypingInterval = 800; // ms
+
+    // Atur tampilan buat clear-icon
     inputSearch.addEventListener("input", function () {
       if (inputSearch.value.trim() !== "") {
         clearIcon.classList.remove("opacity-0", "scale-90");
@@ -282,14 +291,61 @@
       } else {
         clearIcon.classList.remove("opacity-100", "scale-100");
         clearIcon.classList.add("opacity-0", "scale-90");
+
+        applySearch();
       }
+
+      // Tambahan: Setup debounce untuk pencarian otomatis
+      clearTimeout(typingTimer);
+      typingTimer = setTimeout(() => {
+        applySearch();
+      }, doneTypingInterval);
     });
 
+    // Fungsi yang sudah ada - menangani klik ikon clear
     clearIcon.addEventListener("click", function () {
       inputSearch.value = "";
       clearIcon.classList.remove("opacity-100", "scale-100");
       clearIcon.classList.add("opacity-0", "scale-90");
+
+      // Tambahan: Terapkan pencarian (kosong) setelah clear
+      applySearch();
     });
+
+    // Selain mengirim automatis setelah waktu yang ditentukan, user dapat langsung meng klik enter untuk kirim
+    inputSearch.addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        clearTimeout(typingTimer);
+        applySearch();
+      }
+    });
+
+    function applySearch() {
+      const searchValue = inputSearch.value.trim();
+
+      let url = "/expenses";
+
+      if (searchValue) {
+        url += `?search=${encodeURIComponent(searchValue)}`;
+      }
+
+      window.location.href = url;
+    }
+
+    // Tambahan: Inisialisasi nilai search dari URL
+    function initializeSearchState() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const searchParam = urlParams.get("search");
+
+      if (searchParam) {
+        inputSearch.value = searchParam;
+        clearIcon.classList.remove("opacity-0", "scale-90");
+        clearIcon.classList.add("opacity-100", "scale-100");
+      }
+    }
+
+    // Panggil inisialisasi saat halaman dimuat
+    initializeSearchState();
   });
 </script>
 

@@ -18,7 +18,7 @@ function checkAuthenticated(req, res, next) {
   res.redirect("/auth/login");
 }
 router.get("/expenses", checkAuthenticated, async (req, res) => {
-  const data = await Expense.find({}).sort({ date: -1 });
+  const data = await Expense.find({ user: req.user._id }).sort({ date: -1 });
 
   res.render("pages/expenses", { title: "Expenses", data: data });
 });
@@ -33,20 +33,25 @@ router.post("/expenses/add", checkAuthenticated, async (req, res) => {
     category: req.body.category,
     date: req.body.date,
     price: req.body.price,
+    user: req.user._id,
   };
 
-  await Expense.create(spendData)
+  await Expense.create(spendData);
   res.redirect("/expenses");
 });
 
 router.get("/expenses/update/:id", checkAuthenticated, async (req, res) => {
   const id = req.params.id;
-  const data = await Expense.findById(id);
+  // const data = await Expense.findById(id);
+  const data = await Expense.findOne({ _id: id, user: req.user._id });
   if (!data) {
     req.flash("error", "Data tidak ditemukan");
     return res.redirect("/expenses");
   }
-  res.render("pages/expensesUpdate", { title: `Expenses Update ${id} ` ,expenses:data});
+  res.render("pages/expensesUpdate", {
+    title: `Expenses Update ${id} `,
+    expenses: data,
+  });
 });
 
 router.post("/expenses/update/:id", checkAuthenticated, async (req, res) => {
@@ -58,16 +63,31 @@ router.post("/expenses/update/:id", checkAuthenticated, async (req, res) => {
     price: req.body.price,
   };
 
-  await Expense.findByIdAndUpdate(id, spendData);
+  const updatedExpense = await Expense.findOneAndUpdate(
+    { _id: id, user: req.user._id },
+    spendData,
+    { new: true }
+  );
+
+  if (!updatedExpense) {
+    req.flash("error", "Data tidak ditemukan atau Anda tidak memiliki akses");
+    return res.redirect("/expenses");
+  }
   res.redirect("/expenses");
 });
-
 
 router.get("/expenses/delete/:id", checkAuthenticated, async (req, res) => {
   const id = req.params.id;
-  await Expense.findByIdAndDelete(id);
+  const deletedExpense = await Expense.findOneAndDelete({
+    _id: id,
+    user: req.user._id,
+  });
+
+  if (!deletedExpense) {
+    req.flash("error", "Data tidak ditemukan atau Anda tidak memiliki akses");
+    return res.redirect("/expenses");
+  }
   res.redirect("/expenses");
 });
-
 
 module.exports = router;

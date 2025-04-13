@@ -54,12 +54,12 @@
       <!-- Sort -->
 
       <button
-          id="dropdownDelayButton"
-          data-dropdown-toggle="dropdownDelay"
-          class="text-white bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
-          type="button"
-        >
-          Sort by: <%= currentCategory || "Semua" %>
+        id="dropdownDelayButton"
+        data-dropdown-toggle="dropdownDelay"
+        class="text-white bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
+        type="button"
+      >
+        Sort by: <%= currentCategory || "Semua" %>
         <svg
           class="w-2.5 h-2.5 ms-3"
           aria-hidden="true"
@@ -76,30 +76,31 @@
           />
         </svg>
       </button>
-      
+
       <!-- Dropdown menu -->
       <div
         id="dropdownDelay"
         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700"
       >
-      
-      <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
-        <% const categories = ["Semua", "Belanja", "Transfer", "Transportasi", "Kebutuhan Pokok", "Lainya"]; %>
-        <% categories.forEach((cat) => { 
-          const isActive = (currentCategory === cat || (cat === "Semua" && !currentCategory));
-          const activeClass = isActive ? "bg-gray-200 dark:bg-gray-600 text-black dark:text-white font-semibold" : "";
-          const queryString = cat === "Semua" ? `search=${searchQuery || ""}` : `category=${cat}&search=${searchQuery || ""}`;
-        %>
+        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+          <% const categories = ["Semua", "Belanja", "Transfer", "Transportasi",
+          "Kebutuhan Pokok", "Lainya"]; %> <% categories.forEach((cat) => {
+          const isActive = (currentCategory === cat || (cat === "Semua" &&
+          !currentCategory)); const activeClass = isActive ? "bg-gray-200
+          dark:bg-gray-600 text-black dark:text-white font-semibold" : ""; const
+          queryString = cat === "Semua" ? `search=${searchQuery || ""}` :
+          `category=${cat}&search=${searchQuery || ""}`; %>
           <li>
-            <a 
-              href="/expenses?<%= queryString %>" 
-              class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white <%= activeClass %>">
+            <a
+              href="/expenses?<%= queryString %>"
+              class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white <%= activeClass %>"
+            >
               <%= cat %>
             </a>
           </li>
-        <% }); %>
-      </ul>
-    </div>
+          <% }); %>
+        </ul>
+      </div>
     </div>
 
     <!-- Table Data -->
@@ -181,6 +182,7 @@
         </tbody>
       </table>
     </div>
+
     <!-- Pagination -->
     <nav
       class="flex items-center flex-column flex-wrap md:flex-row justify-between mx-auto pt-4 mt-6 max-w-5xl"
@@ -323,9 +325,11 @@
         clearIcon.classList.add("opacity-100", "scale-100");
       }
     }
-    
+
     function filterCategory(category) {
-      window.location.href = `/dashboard?category=${encodeURIComponent(category)}`;
+      window.location.href = `/dashboard?category=${encodeURIComponent(
+        category
+      )}`;
     }
 
     // Panggil inisialisasi saat halaman dimuat

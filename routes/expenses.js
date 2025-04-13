@@ -68,16 +68,36 @@ router.get("/expenses/add", async (req, res) => {
 });
 
 router.post("/expenses/add", checkAuthenticated, async (req, res) => {
+  let dateValue;
+  try {
+    const dateParts = req.body.date.split("/");
+    // Ini buat format jadi DD/MM/YYYY dari form ke mongoDB
+    dateValue = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
+
+    // Check if the date is valid
+    if (isNaN(dateValue.getTime())) {
+      throw new Error("Invalid date");
+    }
+  } catch (error) {
+    req.flash("error", "Format tanggal tidak valid. Gunakan format DD/MM/YYYY");
+    return res.redirect("/expenses");
+  }
+
   const spendData = {
     desc: req.body.desc,
     category: req.body.category,
-    date: req.body.date,
+    date: dateValue,
     price: req.body.price,
     user: req.user._id,
   };
 
-  await Expense.create(spendData);
-  res.redirect("/expenses");
+  try {
+    await Expense.create(spendData);
+    res.redirect("/expenses");
+  } catch (error) {
+    req.flash("error", "Gagal menambahkan data pengeluaran");
+    res.redirect("/expenses");
+  }
 });
 
 router.get("/expenses/update/:id", checkAuthenticated, async (req, res) => {
@@ -94,7 +114,7 @@ router.get("/expenses/update/:id", checkAuthenticated, async (req, res) => {
   const day = String(dateObj.getDate()).padStart(2, "0");
   const month = String(dateObj.getMonth() + 1).padStart(2, "0");
   const year = dateObj.getFullYear();
-  const formattedDate = `${month}/${day}/${year}`;
+  const formattedDate = `${day}/${month}/${year}`;
 
   res.render("pages/expensesUpdate", {
     title: `Expenses Update ${id}`,
@@ -107,10 +127,29 @@ router.get("/expenses/update/:id", checkAuthenticated, async (req, res) => {
 
 router.post("/expenses/update/:id", checkAuthenticated, async (req, res) => {
   const id = req.params.id;
+
+  // Parse the date string to create a valid Date object
+  let dateValue;
+  try {
+    // Split the date string by "/"
+    const dateParts = req.body.date.split("/");
+    // Create a new Date object with format: YYYY-MM-DD
+    // Note: Month is 0-indexed in JavaScript Date, so we subtract 1
+    dateValue = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
+
+    // Check if the date is valid
+    if (isNaN(dateValue.getTime())) {
+      throw new Error("Invalid date");
+    }
+  } catch (error) {
+    req.flash("error", "Format tanggal tidak valid. Gunakan format DD/MM/YYYY");
+    return res.redirect("/expenses");
+  }
+
   const spendData = {
     desc: req.body.desc,
     category: req.body.category,
-    date: req.body.date,
+    date: dateValue,
     price: req.body.price,
   };
 
@@ -140,7 +179,5 @@ router.get("/expenses/delete/:id", checkAuthenticated, async (req, res) => {
   }
   res.redirect("/expenses");
 });
-
-
 
 module.exports = router;

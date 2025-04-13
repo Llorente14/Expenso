@@ -52,6 +52,7 @@ router.get("/dashboard", checkAuthenticated, async (req, res) => {
     res.render("pages/dashboard", {
       title: "Dashboard",
       data,
+      user: req.user,
       dailyTotal: dailyTotal[0]?.total || 0,
       weeklyTotal: weeklyTotal[0]?.total || 0,
       monthlyTotal: monthlyTotal[0]?.total || 0,

@@ -1,4 +1,3 @@
-
 // const primaryColor = "oklch(0.546 0.245 262.881)";
 const primaryColor = "oklch(0.723 0.219 149.579)";
 
@@ -43,9 +42,9 @@ const options = {
     enabled: false,
   },
   stroke: {
-    width: 3, 
+    width: 3,
     curve: "smooth",
-    colors: ["#31CE33"], 
+    colors: ["#31CE33"],
   },
   grid: {
     show: false,
@@ -60,21 +59,20 @@ const options = {
   series: [
     {
       name: "Your Expense",
-      data: [12, 67, 34, 69, 13, 44, 70, 89, 99, 32, 10, 40],
+      data: [], // Data akan diisi secara dinamis
       color: "#31CE33",
     },
   ],
   xaxis: {
-    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", 
-      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-      labels: {
-        show: true,
-        rotate: -45,
-        style: {
-          fontFamily: "Inter, sans-serif",
-          cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
-        }
+    type:"datetime", // Kategori akan diisi secara dinamis
+    labels: {
+      show: true,
+     
+      style: {
+        fontFamily: "Inter, sans-serif",
+        cssClass: "text-xs font-normal fill-gray-500 dark:fill-gray-400",
       },
+    },
     axisBorder: {
       show: false,
     },
@@ -84,49 +82,85 @@ const options = {
   },
   yaxis: {
     show: true,
-    min: 0,
-    max: 100,
-    tickAmount: 5,
+    tickAmount: 7,
     labels: {
       style: {
         fontFamily: "Inter, sans-serif",
-        cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
-      }
+        cssClass: "text-xs font-normal fill-gray-500 dark:fill-gray-400",
+      },
     },
   },
-}
-
-if (document.getElementById("area-chart") && typeof ApexCharts !== 'undefined') {
-  const chart = new ApexCharts(document.getElementById("area-chart"), options);
-  chart.render();
-}
-
-
-
-// Alternative approach for hover effects using JS
-const initChartEvents = () => {
-  setTimeout(() => {
-    const seriesElements = document.querySelectorAll(".apexcharts-series path");
-    if (seriesElements.length) {
-      seriesElements.forEach((path) => {
-        path.style.transition = "stroke-width 0.3s ease, filter 0.3s ease";
-        path.addEventListener("mouseenter", () => {
-          path.style.strokeWidth = "4px";
-          path.style.filter = `drop-shadow(0 0 6px ${primaryColor})`;
-        });
-        path.addEventListener("mouseleave", () => {
-          path.style.strokeWidth = "3px";
-          path.style.filter = "none";
-        });
-      });
-    }
-  }, 1000); // Give chart time to render
 };
 
-let chart = new ApexCharts(document.getElementById("chart"), barOptions);
-chart.render();
+let chart; // Global chart instance
 
-// Initialize both animation approaches
-initChartEvents();
+// Fungsi untuk mengambil data pengeluaran dari server dan memperbarui chart
+async function fetchExpenseData(period = "daily") {
+  try {
+    const response = await fetch(`/api/expenses?period=${period}`);
+    const data = await response.json();
 
+    // Transformasi data untuk grafik
+    const seriesData = data.map((expense) => [
+      new Date(expense.date).getTime(), // Ubah tanggal menjadi timestamp
+      expense.price || 0, // Nilai pengeluaran
+    ]);
 
+    console.log("Series Data:", seriesData);
+
+    // Update chart options
+    options.series[0].data = seriesData;
+
+    // Render ulang chart
+    renderChart();
+  } catch (error) {
+    console.error("Failed to fetch expense data:", error);
+  }
+}
+
+function renderChart() {
+  if (chart) {
+    chart.destroy(); // Hapus grafik lama
+  }
+  chart = new ApexCharts(document.getElementById("area-chart"), options);
+  chart.render().then(() => {
+    initChartEvents(); // Inisialisasi efek hover setelah chart dirender
+    console.log("Chart rendered with updated options:", options);
+  });
+}
+
+// Event listener untuk kartu periode
+document.addEventListener("DOMContentLoaded", () => {
+  const periodCards = document.querySelectorAll(".period-card");
+
+  periodCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const period = card.getAttribute("data-period"); // Ambil nilai periode
+      console.log("Period clicked:", period);
+
+      // Panggil fetchExpenseData untuk memperbarui chart
+      fetchExpenseData(period);
+    });
+  });
+
+  // Render chart pertama kali dengan periode default
+  fetchExpenseData("monthly");
+});
+
+// Fungsi untuk menambahkan efek hover pada chart
+function initChartEvents() {
+  setTimeout(() => {
+    const seriesElements = document.querySelectorAll(".apexcharts-series path");
+    seriesElements.forEach((path) => {
+      path.style.transition = "stroke-width 0.3s ease, filter 0.3s ease";
+      path.addEventListener("mouseenter", () => {
+        path.style.strokeWidth = "4px";
+        path.style.filter = `drop-shadow(0 0 6px ${primaryColor})`;
+      });
+      path.addEventListener("mouseleave", () => {
+        path.style.strokeWidth = "3px";
+        path.style.filter = "none";
+      });
+    });
+  }, 1000); // Beri waktu untuk chart selesai dirender
+}

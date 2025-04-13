@@ -73,7 +73,9 @@ router.post("/expenses/add", checkAuthenticated, async (req, res) => {
     const dateParts = req.body.date.split("/");
     // Ini buat format jadi DD/MM/YYYY dari form ke mongoDB
     dateValue = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
-
+     // Tambahkan waktu sekarang ke tanggal yang diinputkan
+     const now = new Date();
+     dateValue.setHours(now.getHours(), now.getMinutes(), now.getSeconds());
     // Check if the date is valid
     if (isNaN(dateValue.getTime())) {
       throw new Error("Invalid date");

@@ -1,5 +1,6 @@
 <%- include('../layout/header') %>
 
+<link rel="stylesheet" href="/css/pieChart.css">
 <script src="public/script/pieChart.js"></script>
 <body
   class="min-h-dvh bg-slate-800 text-slate-200 grid grid-cols-[auto_1fr]"
@@ -36,7 +37,7 @@
             </svg>
           </div>
           <div class="flex flex-col">
-            <p class="text-lg font-bold text-[#555555]">Rp 18.000</p>
+            <p class="text-lg font-bold text-[#555555]">Rp <%= dailyTotal.toLocaleString() %></p>
 
             <p class="text-sm text-[#333333] font-medium">Harian</p>
           </div>
@@ -60,7 +61,7 @@
             </svg>
           </div>
           <div class="flex flex-col">
-            <p class="text-lg font-bold text-[#555555]">Rp 180.000</p>
+            <p class="text-lg font-bold text-[#555555]">Rp <%= weeklyTotal.toLocaleString() %></p>
 
             <p class="text-sm text-[#333333] font-medium">Mingguan</p>
           </div>
@@ -84,7 +85,7 @@
             </svg>
           </div>
           <div class="flex flex-col">
-            <p class="text-lg font-bold text-[#555555]">Rp 800.000</p>
+            <p class="text-lg font-bold text-[#555555]">Rp <%= monthlyTotal.toLocaleString() %></p>
 
             <p class="text-sm text-[#333333] font-medium">Bulanan</p>
           </div>
@@ -108,7 +109,7 @@
             </svg>
           </div>
           <div class="flex flex-col">
-            <p class="text-lg font-bold text-[#555555]">Rp 1.800.000</p>
+            <p class="text-lg font-bold text-[#555555]">Rp <%= yearlyTotal.toLocaleString() %></p>
 
             <p class="text-sm text-[#333333] font-medium">Tahunan</p>
           </div>

@@ -1,0 +1,14 @@
+/* Ubah warna teks di tengah donut chart */
+.apexcharts-datalabel-label {
+    fill: #ffffff !important; /* Warna teks putih */
+    font-size: 16px !important; /* Ukuran font */
+    font-weight: bold !important; /* Tebal */
+    font-family: 'Poppins', sans-serif !important; /* Font */
+  }
+  
+  .apexcharts-datalabel-value {
+    fill: #ffffff !important; /* Warna teks putih */
+    font-size: 20px !important; /* Ukuran font */
+    font-weight: bold !important; /* Tebal */
+    font-family: 'Poppins', sans-serif !important; /* Font */
+  }

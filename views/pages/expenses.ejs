@@ -83,19 +83,12 @@
         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700"
       >
         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
-<<<<<<< HEAD
-          <% const categories = ["Semua", "Belanja", "Transfer", "Transportasi", "Kebutuhan Pokok", "Lainya"]; %> 
-          <% categories.forEach((cat) => {
-            const isActive = (currentCategory === cat || (cat === "Semua" && !currentCategory)); const activeClass = isActive ? "bg-gray-200 dark:bg-gray-600 text-black dark:text-white font-semibold" : ""; 
-            const queryString = cat === "Semua" ? `search=${searchQuery || ""}` : `category=${cat}&search=${searchQuery || ""}`; %>
-=======
           <% const categories = ["Semua", "Belanja", "Transfer", "Transportasi", "Kebutuhan Pokok", "Lainya"]; %>
           <% categories.forEach((cat) => { 
             const isActive = (currentCategory === cat || (cat === "Semua" && !currentCategory));
             const activeClass = isActive ? "bg-gray-200 dark:bg-gray-600 text-black dark:text-white font-semibold" : "";
             const queryString = cat === "Semua" ? `search=${searchQuery || ""}` : `category=${cat}&search=${searchQuery || ""}`;
           %>
->>>>>>> 9351a11664b36a13fc8fb4a167b7c3baf41e7c15
           <li>
             <a
               href="/expenses?<%= queryString %>"

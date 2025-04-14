@@ -47,6 +47,7 @@ router.get("/expenses", checkAuthenticated, async (req, res) => {
     res.render("pages/expenses", {
       title: "Expenses",
       data,
+      user: req.user,
       searchQuery,
       currentCategory: category,
       counter: {
@@ -64,7 +65,8 @@ router.get("/expenses", checkAuthenticated, async (req, res) => {
   }
 });
 router.get("/expenses/add", async (req, res) => {
-  res.render("pages/expensesAdd", { title: "Expenses" });
+  res.render("pages/expensesAdd", { title: "Expenses" , user: req.user });
+  
 });
 
 router.post("/expenses/add", checkAuthenticated, async (req, res) => {
@@ -120,6 +122,7 @@ router.get("/expenses/update/:id", checkAuthenticated, async (req, res) => {
 
   res.render("pages/expensesUpdate", {
     title: `Expenses Update ${id}`,
+    user: req.user,
     expenses: {
       ...data.toObject(),
       formattedDate,

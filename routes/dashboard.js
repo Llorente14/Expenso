@@ -5,7 +5,7 @@ function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  req.flash("error", "Woi Login Dulu");
+  req.flash("error", "Silahkan login terlebih dahulu!");
   res.redirect("/auth/login");
 }
 

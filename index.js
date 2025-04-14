@@ -14,7 +14,7 @@ const InitializePassport = require("./app/config/passport-config");
 
 //Database Model
 const Users = require("./app/model/Users");
-const PORT = 3000 || process.env.PORT;
+const PORT =  process.env.PORT || 3000;
 
 //Koneksi Ke DB
 connectDB();
@@ -22,7 +22,7 @@ connectDB();
 //Pengecekan
 InitializePassport(passport);
 
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded(), { extended: true });
 //Auth Login Register
 app.use(flash());
 app.use(
@@ -72,7 +72,7 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`http://localhost:${PORT}`);
 });
-
+module.exports = app;
 //trash
 // async function hashing() {
 //   let hashedPass1 = await bcrypt.hash("123", 10);

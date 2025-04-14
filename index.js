@@ -22,7 +22,7 @@ connectDB();
 //Pengecekan
 InitializePassport(passport);
 
-app.use(bodyParser.urlencoded(), { extended: true });
+app.use(express.urlencoded({ extended: true }));
 //Auth Login Register
 app.use(flash());
 app.use(

@@ -57,6 +57,9 @@ app.set("views", path.join(__dirname, "views"));
 
 
 app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/script', express.static(path.join(__dirname, 'public/script')));
+app.use('/css', express.static(path.join(__dirname, 'public/css')));
 //Menangani error favicon
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 //Enabling session

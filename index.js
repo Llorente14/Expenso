@@ -52,6 +52,8 @@ app.use((req, res, next) => {
 //Agar mudah dalam redirect di ejs
 app.locals.baseURL = `http://localhost:${PORT}`;
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
 
 app.use(express.static("public"));
 //Menangani error favicon

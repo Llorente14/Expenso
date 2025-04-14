@@ -54,7 +54,8 @@ app.locals.baseURL = `http://localhost:${PORT}`;
 app.set("view engine", "ejs");
 
 app.use(express.static("public"));
-
+//Menangani error favicon
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 //Enabling session
 
 // Routes

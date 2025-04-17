@@ -1,8 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const Expense = require("../app/model/Expense");
+<<<<<<< HEAD
 const Users = require("../app/model/Users");
 
+=======
+const Category = require('../app/model/Category');
+
+
+
+const { checkAuthenticated } = require("../app/config/auth");
+>>>>>>> 1c54ec3a9b4e4d677dec5482297433c49963bac3
 // const data = [
 //   {
 //     _id: 123,
@@ -12,13 +20,7 @@ const Users = require("../app/model/Users");
 //     price: 40000,
 //   },
 // ];
-function checkAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
 
-  res.redirect("/auth/login");
-}
 router.get("/expenses", checkAuthenticated, async (req, res) => {
   try {
     const searchQuery = req.query.search || "";
@@ -76,6 +78,8 @@ router.post("/expenses/add", checkAuthenticated, async (req, res) => {
   let dateValue;
   try {
     const dateParts = req.body.date.split("/");
+    const categories = await Category.find({ user: req.user._id });
+  
     // Ini buat format jadi DD/MM/YYYY dari form ke mongoDB
     dateValue = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
      // Tambahkan waktu sekarang ke tanggal yang diinputkan
@@ -128,6 +132,7 @@ router.get("/expenses/update/:id", checkAuthenticated, async (req, res) => {
   res.render("pages/expensesUpdate", {
     title: `Expenses Update ${id}`,
     user: req.user,
+    categories,
     expenses: {
       ...data.toObject(),
       formattedDate,

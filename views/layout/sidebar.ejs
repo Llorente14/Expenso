@@ -27,14 +27,20 @@
       <div class="user-info rounded-[0.5em] p-[0.85em] flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700 " id="user-info">
         <p class="text-white">Welcome <%= user.name %> !</p>
       </div>  
+      <li>
+        <a href="/settings?success=" class="rounded-[0.5em] p-[0.85em] flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700">
+          <svg class="shrink-0" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24"><path d="M14.06 9.02l.92.92-8.49 8.49H5.57v-1.92l8.49-8.49Zm2.12-2.12l1.41-1.41a1 1 0 0 1 1.42 0l1.59 1.59a1 1 0 0 1 0 1.42l-1.41 1.41-3.01-3.01ZM20 20H4v-2h16v2Z" fill="currentColor"/></svg>
+          <span class="grow">Edit Profile</span>
+        </a>
+      </li>
       <li class=" ">
-        <a href="<%=baseURL %>" class="rounded-[0.5em] p-[0.85em] flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700">
+        <a href="/" class="rounded-[0.5em] p-[0.85em] flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700">
           <svg class="shrink-0" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" ><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>
           <span class="grow">Home</span>
         </a>
       </li>
       <li>
-        <a href="<%=baseURL %>/dashboard" class="rounded-[0.5em] p-[0.85em] flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700" >
+        <a href="/dashboard" class="rounded-[0.5em] p-[0.85em] flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700" >
           <svg class="shrink-0" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" ><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h240v-560H200v560Zm320 0h240v-280H520v280Zm0-360h240v-200H520v200Z"/></svg>
           <span class="grow">Dashboard</span>
         </a>
@@ -50,8 +56,9 @@
         <ul class="grid transition-all duration-300 ease-in-out  " style="grid-template-rows: 0fr;"id="sub-menu">
             <div class="overflow-hidden">
 
-                <li class="rounded-[0.5em] p-[0.85em] flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700"><a class="ml-8" href="<%=baseURL %>/expenses">Lihat Data</a></li>
-                <li class="rounded-[0.5em] p-[0.85em]  flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700"><a class="ml-8" href="<%=baseURL %>/expenses/add">Tambah Data</a></li>
+                <li class="rounded-[0.5em] p-[0.85em] flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700"><a class="ml-8" href="/expenses">Lihat Data</a></li>
+                <li class="rounded-[0.5em] p-[0.85em]  flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700"><a class="ml-8" href="/expenses/add">Tambah Data</a></li>
+                <li class="rounded-[0.5em] p-[0.85em]  flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700"><a class="ml-8" href="/categories">Tambah Kategori</a></li>
             </div>
         </ul>
        

@@ -1,14 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Expense = require("../app/model/Expense");
-function checkAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  req.flash("error", "Silahkan login terlebih dahulu!");
-  res.redirect("/auth/login");
-}
-
+const { checkAuthenticated } = require("../app/config/auth");
 router.get("/dashboard", checkAuthenticated, async (req, res) => {
   try {
     let filter = { user: req.user._id };

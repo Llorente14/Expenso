@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Expense = require("../app/model/Expense");
+const Users = require("../app/model/Users");
+
 // const data = [
 //   {
 //     _id: 123,
@@ -44,10 +46,13 @@ router.get("/expenses", checkAuthenticated, async (req, res) => {
       .skip((page - 1) * perPage)
       .limit(perPage);
 
+
+
     res.render("pages/expenses", {
       title: "Expenses",
       data,
       searchQuery,
+      user: req.user,
       currentCategory: category,
       counter: {
         startIndex,
@@ -63,8 +68,8 @@ router.get("/expenses", checkAuthenticated, async (req, res) => {
     res.render("pages/expenses", { title: "Expenses", data: [] });
   }
 });
-router.get("/expenses/add", async (req, res) => {
-  res.render("pages/expensesAdd", { title: "Expenses" });
+router.get("/expenses/add",checkAuthenticated, async (req, res) => {
+  res.render("pages/expensesAdd", { title: "Expenses" ,   user: req.user,});
 });
 
 router.post("/expenses/add", checkAuthenticated, async (req, res) => {
@@ -86,7 +91,9 @@ router.post("/expenses/add", checkAuthenticated, async (req, res) => {
   }
 
   const spendData = {
+ 
     desc: req.body.desc,
+
     category: req.body.category,
     date: dateValue,
     price: req.body.price,
@@ -120,6 +127,7 @@ router.get("/expenses/update/:id", checkAuthenticated, async (req, res) => {
 
   res.render("pages/expensesUpdate", {
     title: `Expenses Update ${id}`,
+    user: req.user,
     expenses: {
       ...data.toObject(),
       formattedDate,
@@ -149,6 +157,7 @@ router.post("/expenses/update/:id", checkAuthenticated, async (req, res) => {
   }
 
   const spendData = {
+
     desc: req.body.desc,
     category: req.body.category,
     date: dateValue,

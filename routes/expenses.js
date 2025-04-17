@@ -1,16 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Expense = require("../app/model/Expense");
-<<<<<<< HEAD
 const Users = require("../app/model/Users");
-
-=======
 const Category = require('../app/model/Category');
-
-
-
 const { checkAuthenticated } = require("../app/config/auth");
->>>>>>> 1c54ec3a9b4e4d677dec5482297433c49963bac3
+
 // const data = [
 //   {
 //     _id: 123,

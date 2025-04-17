@@ -69,23 +69,23 @@ const index = require("./routes/index");
 const auth = require("./routes/auth");
 const dashboard = require("./routes/dashboard");
 const expenses = require("./routes/expenses");
-<<<<<<< HEAD
+
 const admin = require("./routes/admin");
-=======
+
 const setting = require("./routes/setting");
 const categoryRoutes = require('./routes/category');
->>>>>>> 1c54ec3a9b4e4d677dec5482297433c49963bac3
+
 
 app.use("/", index);
 app.use("/auth", auth);
 app.use("/", dashboard);
 app.use("/", expenses);
-<<<<<<< HEAD
+
 app.use("/admin", admin);
-=======
+
 app.use("/", setting);
 app.use('/', categoryRoutes);
->>>>>>> 1c54ec3a9b4e4d677dec5482297433c49963bac3
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

@@ -1,0 +1,70 @@
+<%- include('../layout/header') %>
+
+<body class="min-h-screen bg-slate-800 text-slate-200 grid grid-cols-[auto_1fr]" style="font-family: 'Poppins', sans-serif">
+  <%- include('../layout/sidebar') %>
+
+  <main class="container mx-auto my-10 pt-20 max-w-3xl">
+    <h1 class="text-2xl font-bold mb-6 text-center">Pengaturan Akun</h1>
+
+    <% if (req.query.success == 'ada') { %>
+      <div class="mb-4 p-4 bg-green-500 text-white rounded-lg">Berhasil diperbarui!</div>
+    <% } %>
+    <% if (req.query.success == 'tada') { %>
+      <div class="mb-4 p-4 bg-red-500 text-white rounded-lg">Gagal memperbarui data.</div>
+    <% } %>
+
+    <form action="/settings" method="POST" class="pb-2">
+        <!-- Username -->
+        <div class="flex flex-col pb-3 group relative">
+          <label for="name" class="text-base group-focus-within:font-bold">Username</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            value="<%= user.name %>"
+            placeholder="Username kamu"
+            class="focus:ring-transparent outline-none border text-sm border-slate-300 text-slate-800 px-3 py-2 rounded bg-slate-100 focus:border-green-400"
+            required
+          />
+        </div>
+      
+        <!-- Email -->
+<div class="flex flex-col pb-3 group relative">
+    <label for="email" class="text-base group-focus-within:font-bold">Email</label>
+    <input
+      type="gmail"
+      name="gmail"
+      id="gmail"
+      value="<%= user.gmail %>"
+      class="focus:ring-transparent outline-none border text-sm border-slate-300 text-slate-800 px-3 py-2 rounded bg-slate-100 focus:border-green-400"
+      placeholder="Email kamu"
+      required
+    />
+  </div>
+  
+  <!-- Password -->
+  <div class="flex flex-col pb-3 group relative">
+    <label for="password" class="text-base group-focus-within:font-bold">Password</label>
+    <input
+    class="focus:ring-transparent outline-none border text-sm border-slate-300 text-slate-800 px-3 py-2 rounded bg-slate-100 focus:border-green-400"
+      type="password"
+      name="password"
+      id="password"
+      placeholder="Ketik password baru (opsional)"
+    />
+  </div>
+  
+      
+        <!-- Submit -->
+        <button
+            type="submit"
+            class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-green-600 rounded-lg focus:ring-4 focus:ring-green-200 dark:focus:ring-green-900 hover:bg-green-700"
+          >
+            Update Profile
+          </button>
+      </form>
+      
+  </main>
+</body>
+
+<%- include('../layout/footer') %>

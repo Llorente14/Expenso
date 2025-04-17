@@ -2,18 +2,13 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const router = express.Router();
+const {  checkNotAuthenticated } = require("../app/config/auth");
+
 
 //Database Collection
 const User = require("../app/model/Users");
 
-//Middleware agar user harus login untuk masuk ke dashboard ataupun sebaliknya
 
-function checkNotAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return res.redirect("/expenses");
-  }
-  next();
-}
 
 router.get("/login", checkNotAuthenticated, async (req, res) => {
   res.render("pages/login", { title: "Sign In" });

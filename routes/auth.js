@@ -11,7 +11,7 @@ const User = require("../app/model/Users");
 
 
 router.get("/login", checkNotAuthenticated, async (req, res) => {
-  res.render("pages/login", { title: "Sign In" });
+  res.render("pages/login", { title: "Sign In" , alertmsg: req.flash("alertmsg"), error: req.flash("error")});
 });
 
 router.post(
@@ -25,7 +25,7 @@ router.post(
 );
 
 router.get("/register", checkNotAuthenticated, async (req, res) => {
-  res.render("pages/register", { title: "Sign Up" });
+  res.render("pages/register", { title: "Sign Up" , alertmsg: req.flash("alertmsg"), error: req.flash("error")});
 });
 
 router.post("/register", checkNotAuthenticated, async (req, res) => {
@@ -33,24 +33,35 @@ router.post("/register", checkNotAuthenticated, async (req, res) => {
     const { name, gmail, password, cpassword } = req.body;
 
     if (password !== cpassword) {
-      req.flash("error", "Password confirmation doesn't match");
+      req.flash("alertmsg", "Password confirmation doesn't match");
       return res.redirect("/auth/register");
     }
 
-    const existingUser = await User.findOne({ gmail });
+    const existingUser = await User.findOne({ 
+      $or: [
+        { gmail: gmail },
+        { name: name }
+      ]
+    });
+    
     if (existingUser) {
-      req.flash("error", "Email already registered");
+      console.log("User already exists:", existingUser);
+      if (existingUser.gmail === gmail) {
+        req.flash("alertmsg", "Email already exists");
+      } else {
+        req.flash("alertmsg", "Username already exists");
+      }
       return res.redirect("/auth/register");
     }
 
     const hashedPass = await bcrypt.hash(password, 10);
-    await User.create({ name, gmail, password: hashedPass });
+    await User.create({ name, gmail, password: hashedPass , role: "user"});
 
     req.flash("success", "Registration successful. Please login");
     res.redirect("/auth/login");
   } catch (error) {
     console.error("Registration error:", error);
-    req.flash("error", "Registration failed");
+    req.flash("alertmsg", "Registration failed");
     res.redirect("/auth/register");
   }
 });
@@ -60,7 +71,7 @@ router.get("/logout", (req, res) => {
   req.logout((err) => {
     if (err) return next(err);
     // Gunakan req.flash() SEBELUM redirect
-    req.flash("alertmsg", "Anda Berhasil Log Out");
+    req.flash("alertmsg", "Anda berhasil Log Out");
 
     res.redirect("/auth/login");
   });

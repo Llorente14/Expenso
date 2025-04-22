@@ -14,7 +14,7 @@ router.get('/categories', checkAuthenticated, async (req, res) => {
 });
 
 // Tambah kategori
-router.post('/', checkAuthenticated, async (req, res) => {
+router.post('/categories', checkAuthenticated, async (req, res) => {
   try {
     await Category.create({
       name: req.body.name,

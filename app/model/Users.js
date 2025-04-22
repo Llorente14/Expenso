@@ -20,6 +20,11 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  role: {
+    type: Number, 
+    enum: [0, 1], 
+    default: 0, 
+  },
 });
 
 module.exports = mongoose.model("Users", UserSchema);

@@ -63,10 +63,11 @@
                 <option value="" selected disabled hidden>
                   Select category
                 </option>
-                <option value="Belanja">Belanja</option>
-                <option value="Transfer">Transfer</option>
-                <option value="Transportasi">Transportasi</option>
-                <option value="Kebutuhan Pokok">Kebutuhan Pokok</option>
+                <% categories.forEach(c => { %>
+                  <option value="<%= c.name %>"><%= c.name %></option>
+                
+                <% }) %>
+             
                 <option value="Lainnya">Lainnya</option>
               </select>
             </div>

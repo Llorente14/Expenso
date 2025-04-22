@@ -59,7 +59,10 @@
         class="<%= currentCategory ? 'text-white bg-green-400 hover:bg-green-500' : 'text-white bg-slate-600 hover:bg-slate-700' %> focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
         type="button"
       >
-        Sort by: <%= currentCategory || "Semua" %>
+
+      Sort by: <%= currentCategory || "Semua" %>
+     
+    
         <svg
           class="w-2.5 h-2.5 ms-3"
           aria-hidden="true"
@@ -83,7 +86,7 @@
         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700"
       >
         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
-          <% const categories = ["Semua", "Belanja", "Transfer", "Transportasi", "Kebutuhan Pokok", "Lainya"]; %>
+      
           <% categories.forEach((cat) => { 
             const isActive = (currentCategory === cat || (cat === "Semua" && !currentCategory));
             const activeClass = isActive ? "bg-gray-200 dark:bg-gray-600 text-black dark:text-white font-semibold" : "";
@@ -94,7 +97,7 @@
               href="/expenses?<%= queryString %>"
               class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white <%= activeClass %>"
             >
-              <%= cat %>
+              <%= cat.name %>
             </a>
           </li>
           <% }); %>

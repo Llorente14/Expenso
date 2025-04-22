@@ -103,7 +103,7 @@ router.get("/api/expenses", checkAuthenticated, async (req, res) => {
       { $sort: { _id: 1 } }, // Urutkan berdasarkan tanggal
     ]);
 
-    console.log("Aggregated Expenses:", expenses);
+   
 
     // Format data untuk frontend
     const formattedExpenses = expenses.map((expense) => ({

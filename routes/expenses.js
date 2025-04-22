@@ -19,6 +19,9 @@ router.get("/expenses", checkAuthenticated, async (req, res) => {
   try {
     const searchQuery = req.query.search || "";
     const category = req.query.category || null;
+    const categories = await Category.find({ user: req.user._id }).select('name');
+   
+
     let filter = { user: req.user._id };
     if (searchQuery) {
       filter.desc = { $regex: searchQuery, $options: "i" };
@@ -42,14 +45,13 @@ router.get("/expenses", checkAuthenticated, async (req, res) => {
       .skip((page - 1) * perPage)
       .limit(perPage);
 
-
-
     res.render("pages/expenses", {
       title: "Expenses",
       data,
       searchQuery,
       user: req.user,
       currentCategory: category,
+      categories,
       counter: {
         startIndex,
         endIndex,
@@ -65,14 +67,21 @@ router.get("/expenses", checkAuthenticated, async (req, res) => {
   }
 });
 router.get("/expenses/add",checkAuthenticated, async (req, res) => {
-  res.render("pages/expensesAdd", { title: "Expenses" ,   user: req.user,});
+  try{
+    const categories = await Category.find({ user: req.user._id });
+    res.render("pages/expensesAdd", { title: "Expenses" ,categories ,user: req.user,});
+  }catch (error) {
+    req.flash("error", "Internal Server Error")
+    return res.redirect("/expenses");
+  }
+ 
 });
 
 router.post("/expenses/add", checkAuthenticated, async (req, res) => {
   let dateValue;
   try {
     const dateParts = req.body.date.split("/");
-    const categories = await Category.find({ user: req.user._id });
+   
   
     // Ini buat format jadi DD/MM/YYYY dari form ke mongoDB
     dateValue = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
@@ -109,6 +118,8 @@ router.post("/expenses/add", checkAuthenticated, async (req, res) => {
 
 router.get("/expenses/update/:id", checkAuthenticated, async (req, res) => {
   const id = req.params.id;
+  const categories = await Category.find({ user: req.user._id });
+  
   const data = await Expense.findOne({ _id: id, user: req.user._id });
 
   if (!data) {

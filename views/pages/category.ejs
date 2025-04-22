@@ -10,111 +10,92 @@
   <main
     class="container h-auto w-auto flex-1 mx-4 my-6 flex items-center justify-center flex-col"
   >
+  <div class="flex flex-row items-end w-auto mx-auto  max-w-5xl ">
+    <!-- Button Add -->
+   <button></button>
+    <form action="/categories" method="POST" class="mb-6">
+      <input type="text" name="name" placeholder="Nama Kategori"
+             required class="text-black px-2 py-1 rounded">
+      <button type="submit" class="bg-green-500 px-4 py-2 ml-2 rounded text-white">Tambah</button>
+    </form>
+    
+  </div>
+   
     <section class="shadow-md">
-      <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-        <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
-          Add a new spending
-        </h2>
-        <form action="/expenses/add" method="POST">
-          <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-            <div class="sm:col-span-2">
-              <label
-                for="name"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Description</label
-              >
-              <input
-                type="text"
-                name="desc"
-                id="desc"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-                placeholder="Type your.."
-                required=""
-              />
-            </div>
 
-            <div class="w-full">
-              <label
-                for="price"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Price</label
-              >
-              <input
-                type="number"
-                name="price"
-                id="price"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-                placeholder="Rp 40.000"
-                required=""
-              />
-            </div>
-            <div>
-              <label
-                for="category"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Category</label
-              >
-              <select
-                id="category"
-                name="category"
-                required
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-              >
-                <option value="" selected disabled hidden>
-                  Select category
-                </option>
-                <option value="Belanja">Belanja</option>
-                <option value="Transfer">Transfer</option>
-                <option value="Transportasi">Transportasi</option>
-                <option value="Kebutuhan Pokok">Kebutuhan Pokok</option>
-                <option value="Lainnya">Lainnya</option>
-              </select>
-            </div>
-            <div>
-              <label
-                for="item-weight"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Date</label
-              >
-
-              <div class="relative max-w-sm">
-                <div
-                  class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
-                >
-                  <svg
-                    class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
-                    />
-                  </svg>
-                </div>
-                <input
-                  id="datepicker-autohide"
-                  name="date"
-                  datepicker
-                  datepicker-format="dd/mm/yyyy"
-                  datepicker-autohide
-                  datepicker-orientation="top left"
-                  type="text"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-                  placeholder="Select date"
-                  required
-                />
-              </div>
-            </div>
-          </div>
-          <button
-            type="submit"
-            class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-green-600 rounded-lg focus:ring-4 focus:ring-green-200 dark:focus:ring-green-900 hover:bg-green-700"
-          >
-            Add product
-          </button>
-        </form>
+      <div class=" mx-auto max-w-6xl p-1">
+       
+       <!-- Table Category -->
+       <div
+       class="relative overflow-x-auto shadow-md sm:rounded-lg max-w-5xl mx-auto"
+     >
+       <table
+         class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+       >
+         <thead
+           class="text-xs text-gray-600 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300 text-center"
+         >
+           <tr>
+             <th scope="col" class="px-6 py-3">Category Name</th>
+             <th scope="col" class="px-6 py-3">Create At</th>
+             <th scope="col" class="px-6 py-3">
+               <span class="sr-only">res</span>
+             </th>
+           </tr>
+         </thead>
+         <tbody>
+           <% categories.forEach((category) => { %>
+           <tr
+             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+           >
+             <th
+               scope="row"
+               class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-gray-100"
+             >
+               <%= category.name %>
+             </th>
+             <td class="px-6 py-4 text-gray-300"><%= category.createAt.toDateString() %></td>
+             <td
+               class="px-6 py-4 text-right flex flex-row items-center gap-4 justify-end"
+             >
+               <!-- Edit SVG -->
+               <a
+                 href="/expenses/update/<%= category._id%>"
+                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline fill-slate-500 hover:fill-green-500"
+                 ><span class=""
+                   ><svg
+                     xmlns="http://www.w3.org/2000/svg"
+                     height="24px"
+                     viewBox="0 -960 960 960"
+                     width="24px"
+                   >
+                     <path
+                       d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h357l-80 80H200v560h560v-278l80-80v358q0 33-23.5 56.5T760-120H200Zm280-360ZM360-360v-170l367-367q12-12 27-18t30-6q16 0 30.5 6t26.5 18l56 57q11 12 17 26.5t6 29.5q0 15-5.5 29.5T897-728L530-360H360Zm481-424-56-56 56 56ZM440-440h56l232-232-28-28-29-28-231 231v57Zm260-260-29-28 29 28 28 28-28-28Z"
+                     />
+                   </svg> </span
+               ></a>
+               <!-- Delete SVG -->
+               <a
+                 href="/expenses/delete/<%= category._id%>"
+                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline fill-slate-500 hover:fill-red-400"
+                 ><span class=""
+                   ><svg
+                     xmlns="http://www.w3.org/2000/svg"
+                     height="24px"
+                     viewBox="0 -960 960 960"
+                     width="24px"
+                   >
+                     <path
+                       d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z"
+                     />
+                   </svg> </span
+               ></a>
+             </td>
+           </tr>
+           <% }); %>
+         </tbody>
+       </table>
+     </div>
       </div>
     </section>
   </main>
@@ -201,29 +182,3 @@
 
 
 
-
-
-<!-- <%- include('../layout/header') %>
-<body class="bg-slate-800 text-white">
-  <%- include('../layout/sidebar') %>
-
-  <main class="p-6">
-    <h1 class="text-xl font-bold mb-4">Daftar Kategori</h1>
-
-    <form action="/categories" method="POST" class="mb-6">
-      <input type="text" name="name" placeholder="Nama Kategori"
-             required class="text-black px-2 py-1 rounded">
-      <button type="submit" class="bg-green-500 px-4 py-2 ml-2 rounded text-white">Tambah</button>
-    </form>
-
-    <ul>
-      <% categories.forEach(cat => { %>
-        <li class="mb-2 flex justify-between items-center">
-          <span><%= cat.name %></span>
-          <a href="/categories/delete/<%= cat._id %>" class="text-red-500 hover:underline">Hapus</a>
-        </li>
-      <% }) %>
-    </ul>
-  </main>
-</body>
-<%- include('../layout/footer') %> -->

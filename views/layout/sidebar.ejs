@@ -45,6 +45,7 @@
           <span class="grow">Dashboard</span>
         </a>
       </li>
+
       </li>
       <li>
         <button onclick="toggleShowMenu(this, 'sub-menu', 'arrow-icon')" class="rounded-[0.5em] p-[0.85em] flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700" id="dropdown-btn">
@@ -64,6 +65,25 @@
        
        
       </li>
+
+      <li>
+        <button onclick="toggleShowMenu(this, 'sub-menu-2', 'arrow-icon-2')" class="rounded-[0.5em] p-[0.85em] flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700" id="dropdown-btn">
+            <svg class="shrink-0" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" ><path d="M200-200v-560 560Zm0 80q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v100h-80v-100H200v560h560v-100h80v100q0 33-23.5 56.5T760-120H200Zm320-160q-33 0-56.5-23.5T440-360v-240q0-33 23.5-56.5T520-680h280q33 0 56.5 23.5T880-600v240q0 33-23.5 56.5T800-280H520Zm280-80v-240H520v240h280Zm-160-60q25 0 42.5-17.5T700-480q0-25-17.5-42.5T640-540q-25 0-42.5 17.5T580-480q0 25 17.5 42.5T640-420Z"/></svg>
+            <span class="grow">Admin Selection</span>
+            <svg id="arrow-icon-2" class="shrink-0 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            
+        </button>
+        <ul class="grid transition-all duration-300 ease-in-out  " style="grid-template-rows: 0fr;"id="sub-menu-2">
+            <div class="overflow-hidden">
+
+                <li class="rounded-[0.5em] p-[0.85em] flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700"><a class="ml-8" href="/adminPanel">User Table</a></li>
+                <li class="rounded-[0.5em] p-[0.85em]  flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700"><a class="ml-8" href="/adminRole">User Role</a></li>
+
+            </div>
+        </ul>
+      
+      </li>
+
       <li>
         <form action="/auth/logout" method="get" class="rounded-[0.5em] p-[0.85em] flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700">
           <button type="submit" class="flex items-center gap-[1em] w-full cursor-pointer">
@@ -82,9 +102,11 @@
     let sidebar = document.getElementById("sidebar")
     let userInfo = document.getElementById("user-info");
 
+
     function toggleShowMenu(button, menuId, arrowId) {
     const subMenu = document.getElementById(menuId);
     const arrowIcon = document.getElementById(arrowId);
+
 
     // Toggle rotasi ikon panah
     arrowIcon.classList.toggle("rotate-180");

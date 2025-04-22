@@ -81,7 +81,8 @@ app.use("/auth", auth);
 app.use("/", dashboard);
 app.use("/", expenses);
 
-app.use("/admin", admin);
+
+app.use("/", admin);
 
 app.use("/", setting);
 app.use('/', categoryRoutes);

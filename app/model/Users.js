@@ -20,11 +20,18 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  role: {
-    type: Number, 
-    enum: [0, 1], 
-    default: 0, 
+  updateAt: {
+    type: Date,
+    default: Date.now,
   },
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user"
+  },
+}, {
+  timestamps: true
+
 });
 
 module.exports = mongoose.model("Users", UserSchema);

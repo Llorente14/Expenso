@@ -177,30 +177,68 @@ router.get('/users/:id', checkAuthenticated, async (req, res) => {
   }
 });
 
+
+router.get('/users/update/:id', checkAuthenticated, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      req.flash('error', 'User not found');
+      return res.redirect('/adminPanel');
+    }
+    res.render('pages/userUpdate', {
+      title: 'Update User',
+      userData: user,
+      user: req.user
+    });
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    req.flash('error', 'Failed to fetch user data');
+    res.redirect('/adminPanel');
+  }
+});
+
+// ...existing code...
+
 router.post('/users/update/:id', checkAuthenticated, async (req, res) => {
   try {
-    const updates = {
-      name: req.body.name,
-      gmail: req.body.gmail
-    };
-    
-    if (req.body.password) {
-      updates.password = await bcrypt.hash(req.body.password, 10);
+    const userId = req.params.id;
+    const { name, gmail, password } = req.body;
+
+    // Prevent updating own account
+    if (userId === req.user._id.toString()) {
+      req.flash('error', 'Cannot update your own account from admin panel');
+      return res.redirect('/adminPanel');
     }
-    
-    const user = await User.findByIdAndUpdate(
-      req.params.id, 
-      updates,
+
+    // Prepare update data
+    const updateData = {
+      name,
+      gmail
+    };
+
+    // Only hash and update password if provided
+    if (password && password.trim() !== '') {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      updateData.password = hashedPassword;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      updateData,
       { new: true }
     );
 
-    if (!user) {
-      return res.status(404).json({ success: false, message: 'User not found' });
+    if (!updatedUser) {
+      req.flash('error', 'User not found');
+    } else {
+      req.flash('success', 'User updated successfully');
     }
 
-    res.json({ success: true, user });
+    res.redirect('/adminPanel');
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    console.error('Error updating user:', error);
+    req.flash('error', 'Failed to update user');
+    res.redirect('/adminPanel');
   }
 });
 

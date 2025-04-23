@@ -48,15 +48,12 @@
                   </span>
                 </td>
                 <td class="px-6 py-4 flex items-center space-x-2">
-                    <button 
-  onclick="changeRole('<%= user._id %>', '<%= user.role ? user.role : 'user' %>')"
-  class="inline-flex items-center px-3 py-1 text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline focus:outline-none"
->
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-  </svg>
-  Change Role
-</button>
+                    <button class="cursor-pointer inline-flex items-center px-3 py-1 text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                    Change Role
+                    </button>
                   </td>
               </tr>
             <% }); %>
@@ -216,42 +213,13 @@
     initializeSearchState();
   });
 
-  function changeRole(userId, currentRole) {
-      const modal = document.getElementById('roleModal');
-      const roleSelect = document.getElementById('roleSelect');
-      document.getElementById('userId').value = userId;
-      roleSelect.value = currentRole || 'user';
-      modal.classList.remove('hidden');
-    }
+  
 
     function closeRoleModal() {
       document.getElementById('roleModal').classList.add('hidden');
     }
 
-    document.getElementById('roleForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const userId = document.getElementById('userId').value;
-      const newRole = document.getElementById('roleSelect').value;
-
-      try {
-        const response = await fetch(`/admin/users/role/${userId}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ role: newRole })
-        });
-
-        if (response.ok) {
-          window.location.reload();
-        } else {
-          alert('Failed to update role');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred while updating role');
-      }
-    });
+   
 </script>
 
 <%- include('../layout/footer') %>

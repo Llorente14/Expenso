@@ -45,7 +45,7 @@ router.post("/register", checkNotAuthenticated, async (req, res) => {
     }
 
     const hashedPass = await bcrypt.hash(password, 10);
-    const newUser = await User.create({ name, gmail, password: hashedPass });
+    const newUser = await User.create({ name, gmail, password: hashedPass , role: "user"});
 
     const defaultCategories = [
        "Belanja", "Transfer", "Transportasi", "Kebutuhan Pokok", "Lainnya"
@@ -78,6 +78,5 @@ router.get("/logout", (req, res) => {
   });
 });
 
-function insertOneUser() {}
 
 module.exports = router;

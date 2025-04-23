@@ -1,9 +1,10 @@
-<div id="updateUserModal" class="hidden fixed inset-0 z-50">
+<div id="editUserModal" class="hidden fixed inset-0 z-50">
     <div class="absolute inset-0 bg-gray-600 opacity-60"></div>
     <div class="relative z-50 flex items-center justify-center min-h-screen p-4">
       <div class="bg-slate-800 rounded-lg shadow-xl w-96 p-6">
         <h3 class="text-lg font-medium text-gray-200 mb-6">Update User</h3>
-        <form id="updateUserForm" class="space-y-4" method="POST">
+        <form id="editUserForm" class="space-y-4">
+          <input type="hidden" id="userId" name="userId">
           <div>
             <label for="username" class="block text-sm font-medium text-gray-300">Name</label>
             <input type="text" id="username" name="name" required class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
@@ -17,7 +18,7 @@
             <input type="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Leave blank to keep current password">
           </div>
           <div class="flex justify-end gap-3 mt-6">
-            <button type="button" onclick="closeModal()" class="px-4 py-2 bg-slate-600 text-white text-base font-medium rounded-md shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-300">Cancel</button>
+            <button type="button" onclick="closeEditModal()" class="px-4 py-2 bg-slate-600 text-white text-base font-medium rounded-md shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-300">Cancel</button>
             <button type="submit" class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300">Update</button>
           </div>
         </form>
@@ -25,20 +26,47 @@
     </div>
   </div>
   <script>
-  function openModal(userId, username, email) {
-    const modal = document.getElementById('updateUserModal');
-    const form = document.getElementById('updateUserForm');
-    form.action = `/users/update/${userId}`;
+  function openEditModal(userId, username, email) {
+    const modal = document.getElementById('editUserModal');
+    document.getElementById('userId').value = userId;
     document.getElementById('username').value = username;
     document.getElementById('email').value = email;
     document.getElementById('password').value = '';
     modal.classList.remove('hidden');
   }
-  function closeModal() {
-    document.getElementById('updateUserModal').classList.add('hidden');
+  
+  function closeEditModal() {
+    const modal = document.getElementById('editUserModal');
+    modal.classList.add('hidden');
   }
-  window.onclick = function(event) {
-    const modal = document.getElementById('updateUserModal');
-    if (event.target === modal) closeModal();
-  }
+  
+  document.getElementById('editUserForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const userId = document.getElementById('userId').value;
+    const formData = {
+      name: document.getElementById('username').value,
+      gmail: document.getElementById('email').value,
+      password: document.getElementById('password').value
+    };
+  
+    try {
+      const response = await fetch(`/users/update/${userId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+  
+      const data = await response.json();
+      if (data.success) {
+        window.location.reload();
+      } else {
+        alert(data.message || 'Failed to update user');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred while updating user');
+    }
+  });
   </script>

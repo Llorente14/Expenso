@@ -164,81 +164,28 @@ router.get("/adminRole",checkAuthenticated, async (req, res) => {
     res.render("pages/adminPanel", { title: "Admin Panel", data: [] });
   }}); 
 
-// Add these new routes
-router.get('/users/:id', checkAuthenticated, async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
 
-
-router.get('/users/update/:id', checkAuthenticated, async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      req.flash('error', 'User not found');
-      return res.redirect('/adminPanel');
-    }
-    res.render('pages/userUpdate', {
-      title: 'Update User',
-      userData: user,
-      user: req.user
-    });
-  } catch (error) {
-    console.error('Error fetching user:', error);
-    req.flash('error', 'Failed to fetch user data');
-    res.redirect('/adminPanel');
-  }
-});
-
-// ...existing code...
 
 router.post('/users/update/:id', checkAuthenticated, async (req, res) => {
   try {
-    const userId = req.params.id;
-    const { name, gmail, password } = req.body;
-
-    // Prevent updating own account
-    if (userId === req.user._id.toString()) {
-      req.flash('error', 'Cannot update your own account from admin panel');
-      return res.redirect('/adminPanel');
-    }
-
-    // Prepare update data
-    const updateData = {
-      name,
-      gmail
+    const updates = {
+      name: req.body.name,
+      gmail: req.body.gmail
     };
-
-    // Only hash and update password if provided
-    if (password && password.trim() !== '') {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      updateData.password = hashedPassword;
+    console.log('Request Body:', req.body);
+    if (req.body.password) {
+      updates.password = await bcrypt.hash(req.body.password, 10);
     }
 
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      updateData,
-      { new: true }
-    );
+    const user = await User.findByIdAndUpdate(req.params.id, updates, { new: true });
 
-    if (!updatedUser) {
-      req.flash('error', 'User not found');
-    } else {
-      req.flash('success', 'User updated successfully');
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
     }
 
-    res.redirect('/adminPanel');
+    res.json({ success: true, user });
   } catch (error) {
-    console.error('Error updating user:', error);
-    req.flash('error', 'Failed to update user');
-    res.redirect('/adminPanel');
+    res.status(500).json({ success: false, message: error.message });
   }
 });
 

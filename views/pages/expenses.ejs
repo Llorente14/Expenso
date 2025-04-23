@@ -88,9 +88,9 @@
         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
       
           <% categories.forEach((cat) => { 
-            const isActive = (currentCategory === cat || (cat === "Semua" && !currentCategory));
+            const isActive = (currentCategory === cat.name || (cat.name === "Semua" && !currentCategory));
             const activeClass = isActive ? "bg-gray-200 dark:bg-gray-600 text-black dark:text-white font-semibold" : "";
-            const queryString = cat === "Semua" ? `search=${searchQuery || ""}` : `category=${cat}&search=${searchQuery || ""}`;
+            const queryString = cat.name === "Semua" ? `search=${searchQuery || ""}` : `category=${cat.name}&search=${searchQuery || ""}`;
           %>
           <li>
             <a

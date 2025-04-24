@@ -163,8 +163,55 @@ router.get("/adminRole",checkAuthenticated, async (req, res) => {
     req.flash("error", "Gagal memuat data");
     res.render("pages/adminPanel", { title: "Admin Panel", data: [] });
   }}); 
+router.post("/adminPanel/edit/:id", checkAuthenticated, async (req, res) => {
+    try {
+      const userId = req.params.id; // Tangkap user ID dari parameter URL
+      const { username, email, password } = req.body; // Tangkap data dari form input
+  
+      // Siapkan data yang akan diupdate
+      const updates = {
+        name: username,
+        gmail: email,
+      };
+  
+      // Jika password diisi, hash password baru
+      if (password && password.trim() !== "") {
+        updates.password = await bcrypt.hash(password, 10);
+      }
+  
+      // Update data di MongoDB
+      const updatedUser = await User.findByIdAndUpdate(userId, updates, { new: true });
+  
+      if (!updatedUser) {
+        return res.status(404).json({ success: false, message: "User not found" });
+      }
+  
+      // Kirim respons sukses
+      res.json({ success: true, message: "User updated successfully", user: updatedUser });
+    } catch (error) {
+      console.error("Error updating user:", error);
+      res.status(500).json({ success: false, message: "Failed to update user" });
+    }
+  });
 
-
+  router.post('/admin/users/update/:id', checkAuthenticated, async (req, res) => {
+    try {
+      const { name, role } = req.body;
+  
+      const updates = { name, role };
+  
+      const updatedUser = await User.findByIdAndUpdate(req.params.id, updates, { new: true });
+  
+      if (!updatedUser) {
+        return res.status(404).json({ success: false, message: 'User not found' });
+      }
+  
+      res.json({ success: true, user: updatedUser });
+    } catch (error) {
+      console.error('Error updating user role:', error);
+      res.status(500).json({ success: false, message: 'Failed to update user role' });
+    }
+  });
 
 router.post('/users/update/:id', checkAuthenticated, async (req, res) => {
   try {

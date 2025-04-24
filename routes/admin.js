@@ -1,78 +1,11 @@
-// const express = require("express");
-
-// const router = express.Router();
-
-// const User = require("../app/model/Users");
-// function checkAuthenticated(req, res, next) {
-//     if (req.isAuthenticated()) {
-//       return next();
-//     }
-  
-//     res.redirect("/auth/login");
-//   }
-// router.get("/adminPanel",checkAuthenticated, async (req, res) => {
-//   try {
-//     const searchQuery = req.query.search || "";
-//     const category = req.query.category || null;
-//     let filter = { user: req.user._id };
-//     if (searchQuery) {
-//       filter.desc = { $regex: searchQuery, $options: "i" };
-//     }
-//     if (category) {
-//       filter.category = category;
-//     }
-
-//     // Pagination
-//     const perPage = 5;
-//     const page = parseInt(req.query.page) || 1;
-
-//     const count = await User.countDocuments(filter);
-//     const startIndex = count === 0 ? 0 : (page - 1) * perPage + 1;
-//     const endIndex = Math.min(startIndex + perPage - 1, count);
-//     const nextPage = page + 1;
-//     const hasNextPage = nextPage <= Math.ceil(count / perPage);
-
-//     const data = await User.find(filter)
-//       .sort({ createAt: -1 }) // Sort dari tanggal terbaru
-//       .skip((page - 1) * perPage)
-//       .limit(perPage);
-
-//     res.render("pages/adminPanel", {
-//       title: "Admin Panel",
-//       data,
-//       user: req.user,
-//       searchQuery,
-//       currentCategory: category,
-//       counter: {
-//         startIndex,
-//         endIndex,
-//         count,
-//       },
-//       current: page,
-//       nextPage: hasNextPage ? nextPage : null,
-//     });
-//   } catch (error) {
-//     console.error("Error fetching admin:", error);
-//     req.flash("error", "Gagal memuat data");
-//     res.render("pages/adminPanel", { title: "Admin Panel", data: [] });
-//   }
-// });
-
-
-
 
 const express = require("express");
 const router = express.Router();
 const bcrypt = require('bcrypt'); // Add this
 const User = require("../app/model/Users");
+const { checkAuthenticated } = require('../app/config/auth');
 
-function checkAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/auth/login");
-}
-
+//Halaman Berisi Table User
 router.get("/adminPanel", checkAuthenticated, async (req, res) => {
   try {
     const searchQuery = req.query.search || "";
@@ -119,6 +52,7 @@ router.get("/adminPanel", checkAuthenticated, async (req, res) => {
   }
 });
 
+//Halaman Berisi Table User untuk change role user
 router.get("/adminRole",checkAuthenticated, async (req, res) => {
   try {
     const searchQuery = req.query.search || "";
@@ -163,30 +97,57 @@ router.get("/adminRole",checkAuthenticated, async (req, res) => {
     req.flash("error", "Gagal memuat data");
     res.render("pages/adminPanel", { title: "Admin Panel", data: [] });
   }}); 
+
+//Halaman Berisi Form Add Data
+router.get("/adminRole/add", checkAuthenticated, (req, res) => {
+  res.render("pages/userAdd", {
+    title: "Tambah User by Admin",
+    user: req.user,
+  });
+})
+
+//Endpoint untuk menambah user
+router.post("/adminRole/add", checkAuthenticated, async (req, res) => {
+  try {
+    const { username, gmail, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    console.log("gmail "+ gmail)
+    const newUser = new User({
+      name: username,
+      gmail: gmail,
+      password: hashedPassword,
+      role: "user",
+    });
+
+    await User.create(newUser);
+    res.redirect("/adminRole");
+  } catch (error) {
+    console.error("Error adding user:", error);
+    req.flash("error", "Gagal menambah user");  
+  }
+});
+
+//Endpoint untuk edit user di Table adminPanel (Update)
 router.post("/adminPanel/edit/:id", checkAuthenticated, async (req, res) => {
     try {
-      const userId = req.params.id; // Tangkap user ID dari parameter URL
-      const { username, email, password } = req.body; // Tangkap data dari form input
+      const userId = req.params.id; 
+      const { username, email, password } = req.body; 
   
-      // Siapkan data yang akan diupdate
       const updates = {
         name: username,
         gmail: email,
       };
   
-      // Jika password diisi, hash password baru
       if (password && password.trim() !== "") {
         updates.password = await bcrypt.hash(password, 10);
       }
   
-      // Update data di MongoDB
       const updatedUser = await User.findByIdAndUpdate(userId, updates, { new: true });
   
       if (!updatedUser) {
         return res.status(404).json({ success: false, message: "User not found" });
       }
   
-      // Kirim respons sukses
       res.json({ success: true, message: "User updated successfully", user: updatedUser });
     } catch (error) {
       console.error("Error updating user:", error);
@@ -194,7 +155,8 @@ router.post("/adminPanel/edit/:id", checkAuthenticated, async (req, res) => {
     }
   });
 
-  router.post('/admin/users/update/:id', checkAuthenticated, async (req, res) => {
+//Endpoint untuk edit user di Table adminRole (Update)
+  router.post('/adminRole/edit/:id', checkAuthenticated, async (req, res) => {
     try {
       const { name, role } = req.body;
   

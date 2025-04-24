@@ -33,6 +33,8 @@ exports.getSettingsPage = (req, res) => {
 
 exports.checkAuthenticated= async(req, res, next)=> {
     if (req.isAuthenticated()) {
+      const isAdmin = req.user.role === 'admin';
+      res.locals.isAdmin = isAdmin; 
       return next();
     }
   

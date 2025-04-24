@@ -65,10 +65,10 @@
 
        
       </li>
-
+      <% if (isAdmin) { %>
       <li>
         <button onclick="toggleShowMenu(this, 'sub-menu-2', 'arrow-icon-2')" class="rounded-[0.5em] p-[0.85em] flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700" id="dropdown-btn">
-            <svg class="shrink-0" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" ><path d="M200-200v-560 560Zm0 80q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v100h-80v-100H200v560h560v-100h80v100q0 33-23.5 56.5T760-120H200Zm320-160q-33 0-56.5-23.5T440-360v-240q0-33 23.5-56.5T520-680h280q33 0 56.5 23.5T880-600v240q0 33-23.5 56.5T800-280H520Zm280-80v-240H520v240h280Zm-160-60q25 0 42.5-17.5T700-480q0-25-17.5-42.5T640-540q-25 0-42.5 17.5T580-480q0 25 17.5 42.5T640-420Z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" ><path d="M400-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM80-160v-112q0-33 17-62t47-44q51-26 115-44t141-18h14q6 0 12 2-8 18-13.5 37.5T404-360h-4q-71 0-127.5 18T180-306q-9 5-14.5 14t-5.5 20v32h252q6 21 16 41.5t22 38.5H80Zm560 40-12-60q-12-5-22.5-10.5T584-204l-58 18-40-68 46-40q-2-14-2-26t2-26l-46-40 40-68 58 18q11-8 21.5-13.5T628-460l12-60h80l12 60q12 5 22.5 11t21.5 15l58-20 40 70-46 40q2 12 2 25t-2 25l46 40-40 68-58-18q-11 8-21.5 13.5T732-180l-12 60h-80Zm40-120q33 0 56.5-23.5T760-320q0-33-23.5-56.5T680-400q-33 0-56.5 23.5T600-320q0 33 23.5 56.5T680-240ZM400-560q33 0 56.5-23.5T480-640q0-33-23.5-56.5T400-720q-33 0-56.5 23.5T320-640q0 33 23.5 56.5T400-560Zm0-80Zm12 400Z"/></svg>
             <span class="grow">Admin Selection</span>
             <svg id="arrow-icon-2" class="shrink-0 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
             
@@ -78,12 +78,13 @@
 
                 <li class="rounded-[0.5em] p-[0.85em] flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700"><a class="ml-8" href="/adminPanel">User Table</a></li>
                 <li class="rounded-[0.5em] p-[0.85em]  flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700"><a class="ml-8" href="/adminRole">User Role</a></li>
+                <li class="rounded-[0.5em] p-[0.85em]  flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700"><a class="ml-8" href="/adminRole/add">Tambah User</a></li>
 
             </div>
         </ul>
       
       </li>
-
+      <% } %>
       <li>
         <form action="/auth/logout" method="get" class="rounded-[0.5em] p-[0.85em] flex items-center gap-[1em] fill-slate-200 hover:fill-green-400 hover:text-green-400 hover:bg-slate-700">
           <button type="submit" class="flex items-center gap-[1em] w-full cursor-pointer">

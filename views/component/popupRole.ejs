@@ -58,7 +58,7 @@ document.getElementById('updateUserForm').addEventListener('submit', async funct
   };
 
   try {
-    const response = await fetch(`/admin/users/update/${userId}`, {
+    const response = await fetch(`/users/role/${userId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

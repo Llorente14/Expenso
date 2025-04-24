@@ -84,7 +84,7 @@
       <div class="inline-flex mt-2 xs:mt-0">
         <!-- Buttons -->
         <a
-          href="/admin/role?page=<%= current - 1 %><%= searchQuery ? '&search=' + searchQuery : '' %>"
+          href="/adminRole?page=<%= current - 1 %><%= searchQuery ? '&search=' + searchQuery : '' %>"
           class="<%= current <= 1 ? 'pointer-events-none opacity-50' : '' %>"
         >
           <button
@@ -110,7 +110,7 @@
         </a>
 
         <a
-          href="/admin/role?page=<%= nextPage %><%= searchQuery ? '&search=' + searchQuery : '' %>"
+          href="/adminRole?page=<%= nextPage %><%= searchQuery ? '&search=' + searchQuery : '' %>"
           class="<%= !nextPage ? 'pointer-events-none opacity-50' : '' %>"
         >
           <button

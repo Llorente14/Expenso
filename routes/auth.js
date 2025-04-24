@@ -61,7 +61,7 @@ router.post("/register", checkNotAuthenticated, async (req, res) => {
     const newUser = await User.create({ name, gmail, password: hashedPass , role: "user"});
 
     const defaultCategories = [
-       "Belanja", "Transfer", "Transportasi", "Kebutuhan Pokok", "Lainnya"
+       "Belanja", "Transfer", "Transportasi", "Kebutuhan Pokok"
     ];
 
     const categories = defaultCategories.map(name => ({

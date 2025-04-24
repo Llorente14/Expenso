@@ -164,18 +164,7 @@ router.get("/adminRole",checkAuthenticated, async (req, res) => {
     res.render("pages/adminPanel", { title: "Admin Panel", data: [] });
   }}); 
 
-// Add these new routes
-router.get('/users/:id', checkAuthenticated, async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+
 
 router.post('/users/update/:id', checkAuthenticated, async (req, res) => {
   try {
@@ -183,16 +172,12 @@ router.post('/users/update/:id', checkAuthenticated, async (req, res) => {
       name: req.body.name,
       gmail: req.body.gmail
     };
-    
+    console.log('Request Body:', req.body);
     if (req.body.password) {
       updates.password = await bcrypt.hash(req.body.password, 10);
     }
-    
-    const user = await User.findByIdAndUpdate(
-      req.params.id, 
-      updates,
-      { new: true }
-    );
+
+    const user = await User.findByIdAndUpdate(req.params.id, updates, { new: true });
 
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });

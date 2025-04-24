@@ -2,6 +2,7 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
@@ -10,6 +11,7 @@ const path = require("path");
 const app = express();
 const passport = require("passport");
 const flash = require("express-flash");
+const MongoStore = require('connect-mongo');
 const connectDB = require("./app/config/db");
 const InitializePassport = require("./app/config/passport-config");
 
@@ -31,7 +33,14 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false, //No value ga usah di save di session
+    saveUninitialized: false,
+    store: MongoStore.create({ 
+      mongoUrl: process.env.MONGODB_URI,
+      collectionName: 'sessions' 
+    }),
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 
+    }
   })
 );
 app.use(passport.initialize());

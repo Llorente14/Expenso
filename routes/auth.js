@@ -12,7 +12,7 @@ const User = require("../app/model/Users");
 
 
 router.get("/login", checkNotAuthenticated, async (req, res) => {
-  res.render("pages/login", { title: "Sign In" , alertmsg: req.flash("alertmsg"), error: req.flash("error")});
+  res.render("pages/login", { title: "Sign In" });
 });
 
 router.post(

@@ -48,12 +48,17 @@
                   </span>
                 </td>
                 <td class="px-6 py-4 flex items-center space-x-2">
-                    <button class="cursor-pointer inline-flex items-center px-3 py-1 text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline focus:outline-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                    </svg>
-                    Change Role
-                    </button>
+                 
+
+                  <button
+                  onclick="openEditModal('<%= user._id %>', '<%= user.name %>', '<%= user.role %>')"
+                  class="cursor-pointer inline-flex items-center px-3 py-1 text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline focus:outline-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+                  Edit
+                </button>
+                  
                   </td>
               </tr>
             <% }); %>
@@ -133,6 +138,7 @@
     </nav>
   </main>
 </body>
+<%- include('../component/popupRole') %>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const inputSearch = document.getElementById("search");
@@ -170,6 +176,8 @@
       // Tambahan: Terapkan pencarian (kosong) setelah clear
       applySearch();
     });
+     
+
 
     // Selain mengirim automatis setelah waktu yang ditentukan, user dapat langsung meng klik enter untuk kirim
     inputSearch.addEventListener("keypress", function (e) {
@@ -209,6 +217,22 @@
       )}`;
     }
 
+    function openEditModal(userId) {
+  const modal = document.getElementById('editUserModal');
+  const form = document.getElementById('editUserForm');
+  document.getElementById('userId').value = userId;
+  
+  // Fetch user data and populate form
+  fetch(`/admin/users/${userId}`)
+    .then(response => response.json())
+    .then(user => {
+      document.getElementById('username').value = user.name;
+      document.getElementById('role').value = user.role;
+    });
+    
+  modal.classList.remove('hidden');
+}
+
     // Panggil inisialisasi saat halaman dimuat
     initializeSearchState();
   });
@@ -216,9 +240,17 @@
   
 
     function closeRoleModal() {
-      document.getElementById('roleModal').classList.add('hidden');
+      document.getElementById('updateUserModal').classList.add('hidden');
     }
-
+  function openEditModal(userId,username, role) {
+  const modal = document.getElementById('updateUserModal');
+  const form = document.getElementById('updateUserForm');
+  form.action = `/adminPanel/edit/${userId}`; // Set action URL dengan user ID
+  document.getElementById('userId').value = userId;
+  document.getElementById('username').value = username;
+  document.getElementById('role').value = role;
+  modal.classList.remove('hidden');
+}
    
 </script>
 

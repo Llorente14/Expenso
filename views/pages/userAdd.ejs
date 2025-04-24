@@ -1,0 +1,80 @@
+<%- include('../layout/header') %>
+
+<body
+  class="min-h-dvh bg-slate-800 text-slate-200 grid grid-cols-[auto_1fr]"
+  style="font-family: 'Poppins', sans-serif"
+>
+  <!-- Sidebar -->
+  <%- include('../layout/sidebar') %>
+  <!-- Main Content -->
+  <main
+    class="container h-auto w-auto flex-1 mx-4 my-6 flex items-center justify-center flex-col"
+  >
+    <section class="shadow-md">
+      <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+        <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+          Add a new user
+        </h2>
+        <form action="/adminRole/add" method="POST">
+          <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+            <div class="sm:col-span-2">
+              <label
+                for="username"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Username</label
+              >
+              <input
+                type="text"
+                name="username"
+                id="username"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                placeholder="Enter username"
+                required
+              />
+            </div>
+
+            <div class="w-full">
+              <label
+                for="gmail"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Gmail</label
+              >
+              <input
+                type="email"
+                name="gmail"
+                id="gmail"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                placeholder="Enter email"
+                required
+              />
+            </div>
+
+            <div class="w-full">
+              <label
+                for="password"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Password</label
+              >
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                placeholder="Enter password"
+                required
+              />
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-green-600 rounded-lg focus:ring-4 focus:ring-green-200 dark:focus:ring-green-900 hover:bg-green-700"
+          >
+            Add User
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+</body>
+
+<%- include('../layout/footer') %>
